@@ -1,0 +1,19 @@
+
+getitem.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+circleflash
+  rotate: false
+  xy: 2, 31
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+twinkle
+  rotate: false
+  xy: 2, 2
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1

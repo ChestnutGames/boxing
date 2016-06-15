@@ -1,0 +1,58 @@
+﻿luanet.load_assembly("Assembly-CSharp")   
+luanet.load_assembly('UnityEngine')  
+Vector2 = luanet.import_type('UnityEngine.Vector2')  
+Vector3 = luanet.import_type('UnityEngine.Vector3')  
+GameObject = luanet.import_type('UnityEngine.GameObject')   
+Debug = luanet.import_type('UnityEngine.Debug')  
+luanet.import_type('System.Collections.Generic.List') 
+
+GameShared = luanet.import_type('GameShared') 
+StrData = luanet.import_type('GameShared.StrData')
+
+UserManager = luanet.import_type('UserManager')
+ModifyNamePop = luanet.import_type('ModifyNamePop') 
+ModifySignaturePop = luanet.import_type('ModifySignaturePop') 
+UserLevelData =  luanet.import_type('UserLevelData') 
+ 
+
+
+local pop
+
+function InitLua(p) 
+  pop = p; 
+end
+
+function UpLevelCallBack()  
+		UserManager.Instance:UpLevel();
+        pop.SetInfo();
+        pop.SetLevelBtnInfo(); 
+end
+
+function ModifyNameCallBack(namePop)  
+		 UserManager.Instance.nickName = namePop.name.value;
+		 pop.SetName(UserManager.Instance.nickName);
+		 namePop.CloseClick();
+end 
+
+function ModifySignatureCallBack(signPop)  
+		UserManager.Instance.signTxt = signPop.name.value;
+		pop.SetName(UserManager.Instance.signTxt);
+		signPop.CloseClick();
+end 
+
+function GetUpExp()  
+		local num = 0;
+        d = GameShared.Instance:GetUserLevelByLevel(UserManager.Instance.level);
+        if (d ~= nil)
+        then
+            num = d.exp;  
+		end 
+        return num;
+end 
+
+
+function getUpPower() 
+		local num = 0;
+		num = UserManager.Instance.userAttr:GetUpLevelPower(UserManager.Instance.level);
+		return num; 
+end 

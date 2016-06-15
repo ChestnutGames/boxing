@@ -1,0 +1,47 @@
+
+hdqf.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Bstar
+  rotate: false
+  xy: 1387, 972
+  size: 50, 49
+  orig: 50, 49
+  offset: 0, 0
+  index: -1
+Cflash2
+  rotate: false
+  xy: 2, 2
+  size: 377, 377
+  orig: 377, 377
+  offset: 0, 0
+  index: -1
+bluehalo
+  rotate: false
+  xy: 1140, 776
+  size: 245, 245
+  orig: 245, 245
+  offset: 0, 0
+  index: -1
+hd
+  rotate: false
+  xy: 381, 289
+  size: 185, 90
+  orig: 185, 90
+  offset: 0, 0
+  index: -1
+qf
+  rotate: false
+  xy: 1140, 684
+  size: 184, 90
+  orig: 184, 90
+  offset: 0, 0
+  index: -1
+w
+  rotate: false
+  xy: 2, 381
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,86 @@
+﻿luanet.load_assembly("Assembly-CSharp")   
+luanet.load_assembly('UnityEngine')  
+Vector2 = luanet.import_type('UnityEngine.Vector2')  
+Vector3 = luanet.import_type('UnityEngine.Vector3')  
+GameObject = luanet.import_type('UnityEngine.GameObject')   
+Debug = luanet.import_type('UnityEngine.Debug')  
+luanet.import_type('System.Collections.Generic.List') 
+
+GameShared = luanet.import_type('GameShared') 
+StrData = luanet.import_type('GameShared.StrData')
+
+UserManager = luanet.import_type('UserManager')
+RoleWakeData = luanet.import_type('RoleWakeData') 
+ModifySignaturePop = luanet.import_type('ModifySignaturePop') 
+UserLevelData =  luanet.import_type('UserLevelData') 
+ 
+
+
+local pop
+
+function InitLua(p) 
+  pop = p; 
+end
+ 
+function GetCollectAllRoleAttrByType1(type,dataList)  
+ 		local num = 0;
+        for i = 0, dataList.Count-1,i do 
+            num = num + RoleAttrByType(type,dataList[i].wakeLevel);
+        end
+        return num;
+end
+ 
+function GetCollectAllRoleAttrByType2(type,level,dataList) 
+        num = 0;
+        for i = 0, dataList.Count-1, i do
+            num = num+ RoleAttrByType(type, level);
+        end
+        return num;
+end
+
+function RoleAttrByType(type,level,dataList) 
+        local num = 0;
+        for i = 1,level,i do 
+            num = num + dataList[i].GetRoleWakeByLevel(i).collect.additionArr[type];
+        end
+        return num; 
+end
+
+function GetSilderValue() 
+        local d = pop.GetCurView().data.wakeAttr[pop.GetCurView().data.wakeLevel];
+        local a = pop.GetCurView().data.frgNum / d.up_item_num;
+        return a;
+end
+     
+     
+
+function GetRoleBattleAttrByType(type,level) 
+        return pop.GetRoleView().data.GetRoleWakeByLevel(level).battle.attrArr[type];  
+end
+
+function WakeUpCallback()  
+		pop.GetRoleView().data.wakeLevel = pop.GetRoleView().data.wakeLevel +1;
+        pop.SetRoleInfo(pop.GetCurView().data);
+        pop.SetInfo();
+end
+
+function RoleListCallback(list)  
+		 UserManager.Instance.curRole = pop.GetRoleView().data;
+		 pop.SetTable(list);
+end 
+
+function RoleBattleCallback()  
+		 UserManager.Instance.curRole = pop.GetRoleView().data;
+end  
+
+
+function RoleSelect(role)  
+		if (pop ~= null)
+        then
+            pop.GetCurView().SetFous(false);
+            pop.SetRoleInfo(role.data);
+            pop.SetCurView(role);
+        else
+        end
+end  
+ 

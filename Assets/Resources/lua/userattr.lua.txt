@@ -1,0 +1,172 @@
+﻿luanet.load_assembly("Assembly-CSharp")   
+luanet.load_assembly('UnityEngine')  
+Vector2 = luanet.import_type('UnityEngine.Vector2')  
+Vector3 = luanet.import_type('UnityEngine.Vector3')  
+GameObject = luanet.import_type('UnityEngine.GameObject')   
+Debug = luanet.import_type('UnityEngine.Debug')  
+luanet.import_type('System.Collections.Generic.List') 
+
+GameShared = luanet.import_type('GameShared') 
+StrData = luanet.import_type('GameShared.StrData')
+
+UserManager = luanet.import_type('UserManager')
+ModifyNamePop = luanet.import_type('ModifyNamePop') 
+ModifySignaturePop = luanet.import_type('ModifySignaturePop') 
+UserLevelData =  luanet.import_type('UserLevelData') 
+ 
+--获得说有制定装备类型的制定属性
+GetAttrTypeByItemType(itemtype, attrtype) 
+        local num = 0; 
+        List<ItemData> list = new List<ItemData>();
+		 
+        if itemtype == ItemType.Equipment
+		then
+                list = UserManager.Instance.equipmentList;
+        else if item type == ItemType.Boxing
+                list = UserManager.Instance.boxList;
+        else if item type == ItemType.Fashion
+                list = UserManager.Instance.fashionList;
+        end
+       
+        if (list != null)
+        then
+            for i = 0 , list.Count-1; 1  
+                num  = num + list[i].attrArr[attrtype]; 
+            end
+		else
+        end
+        return num;
+end
+
+    //获得制定属性的所有装备加成
+GetAttrByAllItem(attrtype) 
+        local num = 0;
+        num = GetAttrTypeByItemType(ItemType.Equipment, attrtype);
+        num += GetAttrTypeByItemType(ItemType.Boxing, attrtype);
+        num += GetAttrTypeByItemType(ItemType.Fashion, attrtype);
+        return num;
+end
+
+    //获得说有制定装备类型的制定属性加成
+GetAdditionTypeByItemType(itemtype, attrtype) 
+        local num = 0; 
+        List<ItemData> list = new List<ItemData>();
+        switch (itemtype)
+        {
+            case ItemType.Equipment:
+                list = UserManager.Instance.equipmentList;
+                break;
+            case ItemType.Boxing:
+                list = UserManager.Instance.boxList;
+                break;
+            case ItemType.Fashion:
+                list = UserManager.Instance.fashionList;
+                break;
+        }
+        if (list != null)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                num += list[i].additionArr[attrtype];
+
+            }
+        }
+        return num;
+end
+
+    //获得制定属性的所有装备加成
+GetAdditionByAllItem(int attrtype) 
+        local num = 0;
+        num = GetAdditionTypeByItemType(ItemType.Equipment, attrtype);
+        num += GetAdditionTypeByItemType(ItemType.Boxing, attrtype);
+        num += GetAdditionTypeByItemType(ItemType.Fashion, attrtype);
+        return num;
+end
+    //角色
+GetRoleAttrByType(int attrtype) 
+        lcoal num=0;
+        if (UserManager.Instance.roleList ~= null)
+        then
+            for i = 0,UserManager.Instance.roleList.Count-1,1
+                num += UserManager.Instance.roleList[i].attrArr[attrtype];
+
+            end
+        else
+		end
+        return num;
+end
+    public float GetRoleAdditionByType(int attrtype)
+    {
+        float num = 0;
+        if (UserManager.Instance.roleList != null)
+        {
+            for (int i = 0; i < UserManager.Instance.roleList.Count; i++)
+            {
+                num += UserManager.Instance.roleList[i].additionArr[attrtype];
+
+            }
+        }
+        return num;
+    }
+    //角色上阵提升
+    public float GetCurRoleAttrByType(int attrtype)
+    {
+        float num = 0;
+        if (UserManager.Instance.GetCurRole() != null)
+        {
+            num = UserManager.Instance.GetCurRole().battleAttr[attrtype];
+        }
+        return num;
+    }
+
+    public float GetCurRoleAdditionByType(int attrtype)
+    {
+        float num = 0;
+        if (UserManager.Instance.GetCurRole() != null)
+        {
+            num = UserManager.Instance.GetCurRole().battleAddition[attrtype];
+        }
+        return num;
+    }
+    ////永久提升 
+    public float GetForeverAttr(int type)
+    {
+        float num = 0;
+        if (UserManager.Instance.GetCurRole() != null)
+        {
+            num = UserManager.Instance.foreverAttr.attrArr[type];
+        }
+        return num;
+    }
+    public float GetUserLevelData(int l,int attrtype)
+    {
+        float num = 0;
+        UserLevelData d = GameShared.Instance.GetUserLevelByLevel(l);
+        if (d != null)
+            num = d.attrArr[attrtype];
+        return num;
+    }
+
+    public float GetUserAttrByType(int l,int attrtype)
+    {
+        float num = (GetUserLevelData(l, attrtype) + GetAttrByAllItem(attrtype) + GetRoleAttrByType(attrtype) + GetCurRoleAttrByType(attrtype) + GetForeverAttr(attrtype)) *
+             (1.0f + GetAdditionByAllItem(attrtype) + GetRoleAdditionByType(attrtype) + GetCurRoleAdditionByType(attrtype));
+         return num;
+    }
+
+    public float GetUpLevelPower(int level)
+    {
+        float fight = 0;
+        fight = GetUserAttrByType(level+1, (int)AttrType.FightPower) - GetUserAttrByType(level, (int)AttrType.FightPower);
+        return fight;
+    }  
+
+
+ 
+    public void RestUserAttr(int level)
+    {
+        for(int i=0;i<Enum.GetNames(typeof(AttrType)).Length;i++)
+        {
+            attrArr[i] = GetUserAttrByType(level,i) - GetUserAttrByType(UserManager.Instance.level,i);
+        }
+    }

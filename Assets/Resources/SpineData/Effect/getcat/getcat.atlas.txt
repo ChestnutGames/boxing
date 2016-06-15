@@ -1,0 +1,89 @@
+
+getcat.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dark
+  rotate: false
+  xy: 2, 1401
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1
+ju2
+  rotate: false
+  xy: 2, 118
+  size: 575, 267
+  orig: 575, 267
+  offset: 0, 0
+  index: -1
+sence1/audience
+  rotate: true
+  xy: 1140, 427
+  size: 864, 240
+  orig: 864, 240
+  offset: 0, 0
+  index: -1
+sence1/field1
+  rotate: false
+  xy: 2, 387
+  size: 1136, 144
+  orig: 1136, 144
+  offset: 0, 0
+  index: -1
+sence1/field2
+  rotate: false
+  xy: 2, 533
+  size: 1136, 224
+  orig: 1136, 224
+  offset: 0, 0
+  index: -1
+sence1/weimu
+  rotate: false
+  xy: 1382, 651
+  size: 176, 640
+  orig: 176, 640
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 1560, 883
+  size: 368, 408
+  orig: 368, 408
+  offset: 0, 0
+  index: -1
+spotlight
+  rotate: false
+  xy: 579, 261
+  size: 289, 124
+  orig: 289, 124
+  offset: 0, 0
+  index: -1
+twinkle
+  rotate: false
+  xy: 1140, 398
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+w
+  rotate: false
+  xy: 2, 759
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1
+windmill
+  rotate: false
+  xy: 1140, 1293
+  size: 747, 748
+  orig: 747, 748
+  offset: 0, 0
+  index: -1
+yellowhalo
+  rotate: false
+  xy: 2, 2
+  size: 114, 114
+  orig: 114, 114
+  offset: 0, 0
+  index: -1

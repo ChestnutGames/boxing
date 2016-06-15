@@ -1,0 +1,117 @@
+
+US3_.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+armL
+  rotate: false
+  xy: 288, 100
+  size: 120, 200
+  orig: 120, 200
+  offset: 0, 0
+  index: -1
+armR
+  rotate: true
+  xy: 604, 172
+  size: 128, 184
+  orig: 128, 184
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 190
+  size: 272, 320
+  orig: 272, 320
+  offset: 0, 0
+  index: -1
+handL
+  rotate: true
+  xy: 386, 2
+  size: 96, 80
+  orig: 96, 80
+  offset: 0, 0
+  index: -1
+handR
+  rotate: false
+  xy: 288, 2
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+head1
+  rotate: true
+  xy: 276, 302
+  size: 208, 328
+  orig: 208, 328
+  offset: 0, 0
+  index: -1
+head2
+  rotate: true
+  xy: 276, 302
+  size: 208, 328
+  orig: 208, 328
+  offset: 0, 0
+  index: -1
+head3
+  rotate: true
+  xy: 276, 302
+  size: 208, 328
+  orig: 208, 328
+  offset: 0, 0
+  index: -1
+head6
+  rotate: true
+  xy: 276, 302
+  size: 208, 328
+  orig: 208, 328
+  offset: 0, 0
+  index: -1
+head4
+  rotate: true
+  xy: 606, 302
+  size: 208, 296
+  orig: 208, 296
+  offset: 0, 0
+  index: -1
+head5
+  rotate: true
+  xy: 606, 302
+  size: 208, 296
+  orig: 208, 296
+  offset: 0, 0
+  index: -1
+legL
+  rotate: false
+  xy: 904, 398
+  size: 88, 112
+  orig: 88, 112
+  offset: 0, 0
+  index: -1
+legR
+  rotate: false
+  xy: 904, 398
+  size: 88, 112
+  orig: 88, 112
+  offset: 0, 0
+  index: -1
+shoe
+  rotate: false
+  xy: 790, 268
+  size: 56, 32
+  orig: 56, 32
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 410, 172
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+under
+  rotate: false
+  xy: 2, 15
+  size: 284, 173
+  orig: 284, 173
+  offset: 0, 0
+  index: -1

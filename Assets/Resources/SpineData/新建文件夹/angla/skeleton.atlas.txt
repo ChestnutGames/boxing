@@ -1,0 +1,117 @@
+
+skeleton.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+安哥拉_r14_c18
+  rotate: false
+  xy: 908, 376
+  size: 96, 32
+  orig: 96, 32
+  offset: 0, 0
+  index: -1
+安哥拉_r17_c16
+  rotate: false
+  xy: 908, 410
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+安哥拉_r18_c21
+  rotate: false
+  xy: 204, 142
+  size: 96, 80
+  orig: 96, 80
+  offset: 0, 0
+  index: -1
+安哥拉_r2_c14
+  rotate: false
+  xy: 2, 354
+  size: 200, 152
+  orig: 200, 152
+  offset: 0, 0
+  index: -1
+安哥拉_r2_c2
+  rotate: false
+  xy: 406, 370
+  size: 184, 136
+  orig: 184, 136
+  offset: 0, 0
+  index: -1
+安哥拉_r2_c26
+  rotate: false
+  xy: 2, 208
+  size: 200, 144
+  orig: 200, 160
+  offset: 0, 16
+  index: -1
+安哥拉_r3_c2
+  rotate: false
+  xy: 2, 70
+  size: 192, 136
+  orig: 192, 136
+  offset: 0, 0
+  index: -1
+安哥拉_r3_c4
+  rotate: false
+  xy: 204, 224
+  size: 192, 136
+  orig: 192, 136
+  offset: 0, 0
+  index: -1
+安哥拉_r3_c7
+  rotate: false
+  xy: 592, 370
+  size: 184, 136
+  orig: 184, 136
+  offset: 0, 0
+  index: -1
+安哥拉_r6_c26
+  rotate: false
+  xy: 204, 362
+  size: 200, 144
+  orig: 200, 144
+  offset: 0, 0
+  index: -1
+安哥拉_r7_c5
+  rotate: false
+  xy: 778, 386
+  size: 128, 120
+  orig: 128, 120
+  offset: 0, 0
+  index: -1
+安哥拉_r8_c11
+  rotate: false
+  xy: 84, 28
+  size: 96, 40
+  orig: 96, 40
+  offset: 0, 0
+  index: -1
+安哥拉_r8_c37
+  rotate: false
+  xy: 302, 190
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+安哥拉_r8_c417
+  rotate: true
+  xy: 84, 2
+  size: 24, 96
+  orig: 24, 96
+  offset: 0, 0
+  index: -1
+安哥拉_r8_c47
+  rotate: false
+  xy: 196, 116
+  size: 56, 24
+  orig: 56, 24
+  offset: 0, 0
+  index: -1
+安哥拉_r9_c3
+  rotate: false
+  xy: 2, 4
+  size: 80, 64
+  orig: 80, 64
+  offset: 0, 0
+  index: -1

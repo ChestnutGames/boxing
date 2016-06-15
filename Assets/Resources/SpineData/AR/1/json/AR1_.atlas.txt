@@ -1,0 +1,110 @@
+
+AR1_.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm
+  rotate: true
+  xy: 514, 244
+  size: 96, 32
+  orig: 96, 32
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 578, 406
+  size: 128, 104
+  orig: 128, 104
+  offset: 0, 0
+  index: -1
+handL
+  rotate: false
+  xy: 708, 430
+  size: 96, 80
+  orig: 96, 80
+  offset: 0, 0
+  index: -1
+handR
+  rotate: false
+  xy: 352, 138
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+head1
+  rotate: false
+  xy: 2, 257
+  size: 348, 253
+  orig: 348, 253
+  offset: 0, 0
+  index: -1
+head4
+  rotate: false
+  xy: 2, 257
+  size: 348, 253
+  orig: 348, 253
+  offset: 0, 0
+  index: -1
+head6
+  rotate: false
+  xy: 2, 257
+  size: 348, 253
+  orig: 348, 253
+  offset: 0, 0
+  index: -1
+head2
+  rotate: false
+  xy: 2, 257
+  size: 348, 253
+  orig: 348, 253
+  offset: 0, 0
+  index: -1
+head3
+  rotate: false
+  xy: 2, 2
+  size: 348, 253
+  orig: 348, 253
+  offset: 0, 0
+  index: -1
+head5
+  rotate: false
+  xy: 2, 2
+  size: 348, 253
+  orig: 348, 253
+  offset: 0, 0
+  index: -1
+legL
+  rotate: true
+  xy: 578, 380
+  size: 24, 80
+  orig: 24, 80
+  offset: 0, 0
+  index: -1
+legR
+  rotate: true
+  xy: 578, 380
+  size: 24, 80
+  orig: 24, 80
+  offset: 0, 0
+  index: -1
+shoe
+  rotate: false
+  xy: 352, 112
+  size: 48, 24
+  orig: 48, 24
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 352, 236
+  size: 160, 104
+  orig: 160, 104
+  offset: 0, 0
+  index: -1
+under
+  rotate: false
+  xy: 352, 342
+  size: 224, 168
+  orig: 224, 168
+  offset: 0, 0
+  index: -1

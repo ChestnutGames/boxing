@@ -1,0 +1,117 @@
+
+IDN2_.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+armL
+  rotate: false
+  xy: 468, 230
+  size: 72, 104
+  orig: 72, 104
+  offset: 0, 0
+  index: -1
+armR
+  rotate: false
+  xy: 578, 548
+  size: 88, 120
+  orig: 88, 120
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 290, 166
+  size: 176, 168
+  orig: 176, 168
+  offset: 0, 0
+  index: -1
+handL
+  rotate: true
+  xy: 578, 450
+  size: 96, 80
+  orig: 96, 80
+  offset: 0, 0
+  index: -1
+handR
+  rotate: false
+  xy: 866, 906
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+head1
+  rotate: false
+  xy: 2, 670
+  size: 286, 332
+  orig: 286, 332
+  offset: 0, 0
+  index: -1
+head2
+  rotate: false
+  xy: 2, 336
+  size: 286, 332
+  orig: 286, 332
+  offset: 0, 0
+  index: -1
+head3
+  rotate: false
+  xy: 290, 670
+  size: 286, 332
+  orig: 286, 332
+  offset: 0, 0
+  index: -1
+head4
+  rotate: false
+  xy: 2, 2
+  size: 286, 332
+  orig: 286, 332
+  offset: 0, 0
+  index: -1
+head5
+  rotate: false
+  xy: 290, 336
+  size: 286, 332
+  orig: 286, 332
+  offset: 0, 0
+  index: -1
+head6
+  rotate: false
+  xy: 578, 670
+  size: 286, 332
+  orig: 286, 332
+  offset: 0, 0
+  index: -1
+legL
+  rotate: false
+  xy: 866, 832
+  size: 64, 72
+  orig: 64, 72
+  offset: 0, 0
+  index: -1
+legR
+  rotate: false
+  xy: 290, 50
+  size: 72, 64
+  orig: 72, 64
+  offset: 0, 0
+  index: -1
+shoe
+  rotate: false
+  xy: 964, 978
+  size: 56, 24
+  orig: 56, 24
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 668, 604
+  size: 112, 64
+  orig: 112, 64
+  offset: 0, 0
+  index: -1
+under
+  rotate: false
+  xy: 290, 116
+  size: 136, 48
+  orig: 136, 48
+  offset: 0, 0
+  index: -1

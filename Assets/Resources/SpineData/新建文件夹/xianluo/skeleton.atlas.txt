@@ -1,0 +1,117 @@
+
+skeleton.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+XLhead1
+  rotate: false
+  xy: 430, 342
+  size: 160, 168
+  orig: 160, 168
+  offset: 0, 0
+  index: -1
+XLhead2
+  rotate: false
+  xy: 2, 318
+  size: 248, 192
+  orig: 248, 192
+  offset: 0, 0
+  index: -1
+XLhead3
+  rotate: false
+  xy: 2, 148
+  size: 192, 168
+  orig: 192, 168
+  offset: 0, 0
+  index: -1
+XLhead4
+  rotate: false
+  xy: 2, 2
+  size: 168, 144
+  orig: 168, 144
+  offset: 0, 0
+  index: -1
+XLhead5
+  rotate: false
+  xy: 592, 342
+  size: 160, 168
+  orig: 160, 168
+  offset: 0, 0
+  index: -1
+XLhead6
+  rotate: false
+  xy: 754, 342
+  size: 160, 168
+  orig: 160, 168
+  offset: 0, 0
+  index: -1
+handL
+  rotate: false
+  xy: 490, 260
+  size: 96, 80
+  orig: 96, 80
+  offset: 0, 0
+  index: -1
+handR
+  rotate: false
+  xy: 286, 244
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+xianluo_r11_c1
+  rotate: true
+  xy: 916, 374
+  size: 136, 80
+  orig: 136, 80
+  offset: 0, 0
+  index: -1
+xianluo_r12_c12
+  rotate: false
+  xy: 702, 276
+  size: 56, 64
+  orig: 56, 64
+  offset: 0, 0
+  index: -1
+xianluo_r12_c21
+  rotate: false
+  xy: 588, 276
+  size: 112, 64
+  orig: 112, 64
+  offset: 0, 0
+  index: -1
+xianluo_r13_c7
+  rotate: false
+  xy: 760, 284
+  size: 48, 56
+  orig: 48, 56
+  offset: 0, 0
+  index: -1
+xianluo_r7_c1
+  rotate: false
+  xy: 252, 342
+  size: 176, 168
+  orig: 176, 168
+  offset: 0, 0
+  index: -1
+xianluo_r8_c9
+  rotate: false
+  xy: 196, 196
+  size: 88, 120
+  orig: 88, 120
+  offset: 0, 0
+  index: -1
+xianluo_r9_c15
+  rotate: true
+  xy: 384, 260
+  size: 80, 104
+  orig: 80, 104
+  offset: 0, 0
+  index: -1
+xianluo_s1
+  rotate: false
+  xy: 196, 162
+  size: 56, 32
+  orig: 56, 32
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,115 @@
+luanet.load_assembly("Assembly-CSharp")   
+luanet.load_assembly('UnityEngine')  
+Vector2 = luanet.import_type('UnityEngine.Vector2')  
+Vector3 = luanet.import_type('UnityEngine.Vector3')  
+GameObject = luanet.import_type('UnityEngine.GameObject')   
+Debug = luanet.import_type('UnityEngine.Debug')  
+
+GameShared = luanet.import_type('GameShared') 
+StrData = luanet.import_type('GameShared.StrData') 
+luanet.import_type('C2sSprotoType.equipment_enhance.response') 
+luanet.import_type('C2sSprotoType.equipment_all.response') 
+Def = luanet.import_type('Def')  
+AchievementPop = luanet.import_type('MainUI') 
+NetworkManager =  luanet.import_type('NetworkManager')
+NetworkManager =  luanet.import_type('EquipViewData')
+NetworkManager =  luanet.import_type('EquipData')
+luanet.import_type('System.Collections.Generic.List') 
+
+local pop
+local equipTable
+local curEquip
+
+function InitLua(p) 
+  pop = p; 
+end
+
+function EquipListCallback(resp)
+        GetEquipList(resp.l);
+        GetCurEquip(equipTable);
+        SetEquipInfo(curEquip);
+        pop.SetEquipList(equipTable);
+end
+
+function GetEquipList(list,table)
+        equipTable = table;
+        for i = 0, i < list.Count, 1 do
+            EquipViewData e = new EquipViewData();
+            e.id = list[i].csv_id;
+            e.level = list[i].level;
+            e.data = GameShared.Instance:GetEquipmentIntensifyById(e.id);
+            e.type = list[i].type;
+            equipTable.Add(e.type, e);
+        end 
+end
+
+ 
+function GetCurEquip(table)
+{
+        curEquip = table[1];
+        for  int i = 2, i < 5, 1 do 
+            EquipViewData a = table[i];
+            if (a.level < curEquip.level)
+            then
+                curEquip = a;
+            else
+			end
+        end
+        return curEquip; 
+end
+
+function SetEquipInfo(d1) 
+        local d2 = null;
+        if (d1.level < Def.EquipLevelMax) 
+		then
+            local id = d2.csv_id++;
+            d2 = GameShared.Instance.GetEquipmentIntensifyById(id);
+        else
+		end
+         
+            pop.level.text = d1.data .. "/" .. Def.EquipLevelMax;
+            pop.name.text = d1.data.name;
+            pop.numIcon.spriteName = d1.data.path; 
+
+            if (d2 ~= nil)
+            {
+                pop.intensifylevel.text = d1.level .. "-" .. d2.level;
+                pop.use.text = d2.currency_num.ToString();
+                pop.pre.text = d2.enhance_success_rate.ToString();
+                pop.powerlevel.text = d1.data.attrArr[Def.AttrType.FightPower] .. "-" .. d2.attrArr[Def.AttrType.FightPower];
+            }
+            else
+            {
+                pop.intensifylevel.text = d1.level.ToString();
+                pop.use.text = "";
+                pop.pre.text = "";
+                pop.powerlevel.text = d1.data.attrArr[Def.AttrType.FightPower].ToString();
+            }  
+    }
+
+
+function Intensify() 
+        if(curEquip.level < Def.EquipLevelMax)
+        then
+            C2sSprotoType.equipment_enhance.request obj = new C2sSprotoType.equipment_enhance.request();
+            obj.csv_id = curEquip.data.csv_id;
+            NetworkManager.Instance.EquipIntensify(obj); 
+        else
+         
+            DiamonPop(); 
+        end  
+end
+function IntensifyCallback(C2sSprotoType.equipment_enhance.response resp)
+        curEquip.level++;
+        curEquip.id++;
+        curEquip.data = GameShared.Instance.GetEquipmentIntensifyById(curEquip.id);
+        GetCurEquip(equipTable);
+        SetEquipInfo(curEquip);
+end
+ 
+function EquipPopClose(obj)
+        pop = null;
+        MainUI.Instance.SetPopState(MainUI.PopType.Equip, false);
+        obj.SetActive(false);
+        Destroy(obj); 
+end

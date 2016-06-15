@@ -1,0 +1,68 @@
+
+qhsb.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+badaura
+  rotate: false
+  xy: 1140, 918
+  size: 319, 103
+  orig: 319, 103
+  offset: 0, 0
+  index: -1
+darkhalo
+  rotate: false
+  xy: 2, 2
+  size: 377, 377
+  orig: 377, 377
+  offset: 0, 0
+  index: -1
+drop
+  rotate: false
+  xy: 1140, 794
+  size: 15, 25
+  orig: 15, 25
+  offset: 0, 0
+  index: -1
+hammer
+  rotate: false
+  xy: 381, 195
+  size: 111, 184
+  orig: 111, 184
+  offset: 0, 0
+  index: -1
+qh
+  rotate: false
+  xy: 1461, 928
+  size: 187, 93
+  orig: 187, 93
+  offset: 0, 0
+  index: -1
+qh1
+  rotate: true
+  xy: 381, 6
+  size: 187, 93
+  orig: 187, 93
+  offset: 0, 0
+  index: -1
+sb
+  rotate: false
+  xy: 1140, 821
+  size: 186, 95
+  orig: 186, 95
+  offset: 0, 0
+  index: -1
+spark
+  rotate: false
+  xy: 494, 352
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+w
+  rotate: false
+  xy: 2, 381
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1

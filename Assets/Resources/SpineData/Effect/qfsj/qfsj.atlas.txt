@@ -1,0 +1,75 @@
+
+qfsj.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bluehalo
+  rotate: false
+  xy: 2, 196
+  size: 245, 245
+  orig: 245, 245
+  offset: 0, 0
+  index: -1
+circleflash
+  rotate: false
+  xy: 1140, 1125
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+dark
+  rotate: false
+  xy: 2, 1085
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1
+itemm
+  rotate: false
+  xy: 2, 2
+  size: 192, 192
+  orig: 192, 192
+  offset: 0, 0
+  index: -1
+itemm2
+  rotate: false
+  xy: 249, 249
+  size: 192, 192
+  orig: 192, 192
+  offset: 0, 0
+  index: -1
+lightdot
+  rotate: false
+  xy: 1511, 1065
+  size: 58, 58
+  orig: 58, 58
+  offset: 0, 0
+  index: -1
+qfsj
+  rotate: false
+  xy: 1140, 1033
+  size: 369, 90
+  orig: 369, 90
+  offset: 0, 0
+  index: -1
+qfsj2
+  rotate: true
+  xy: 1742, 1356
+  size: 369, 90
+  orig: 369, 90
+  offset: 0, 0
+  index: -1
+w
+  rotate: false
+  xy: 2, 443
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1
+yellowhalo
+  rotate: false
+  xy: 1140, 917
+  size: 114, 114
+  orig: 114, 114
+  offset: 0, 0
+  index: -1

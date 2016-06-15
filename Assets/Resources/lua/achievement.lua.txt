@@ -1,0 +1,60 @@
+luanet.load_assembly("Assembly-CSharp")   
+luanet.load_assembly('UnityEngine')  
+Vector2 = luanet.import_type('UnityEngine.Vector2')  
+Vector3 = luanet.import_type('UnityEngine.Vector3')  
+GameObject = luanet.import_type('UnityEngine.GameObject')   
+Debug = luanet.import_type('UnityEngine.Debug')  
+
+GameShared = luanet.import_type('GameShared') 
+StrData = luanet.import_type('GameShared.StrData')
+Response = luanet.import_type('C2sSprotoType.achievement.response') 
+AchievementViewData = luanet.import_type('AchievementViewData') 
+AchievementData = luanet.import_type('AchievementData')  
+AchievementPop = luanet.import_type('AchievementPop') 
+AchievementMgr =  luanet.import_type('AchievementMgr')
+Response =  luanet.import_type('C2sSprotoType.achievement.response') 
+luanet.import_type('System.Collections.Generic.List') 
+
+local pop
+
+function InitLua(p) 
+  pop = p; 
+end
+
+function AchievementListCallBack(list,resp)  
+		local dataList = list; 
+        for i=0, resp.achis.Count-1, 1 do 
+            local view = AchievementViewData();
+            local id = resp.achis[i].csv_id;
+            local data = GameShared.Instance:GetAchievementData(id);
+            view.curProgress = resp.achis[i].finished;
+            view.data = data;
+            dataList:Add(view);
+        end
+        return dataList;
+end
+
+function ChangeViewData(viewList,tardata)  
+	for i=0,viewList.Count-1,1 do 
+		if(viewList[i].data.data.type ==  tardata.type)
+		then
+			viewList[i].RestData(tardata);
+            return;
+		else 
+
+		end
+    end
+end 
+
+function Unlock(data)  
+	--list = MakeGenericType(ListType,StrData)
+	local list = GameShared.Instance:GetStrData(data.unlockId);
+	for i=0,viewList.Count-1,1 do
+		if(tar ~= null)
+		then
+			pop.ChangeViewData(tar);
+		else 
+
+		end
+    end
+end 

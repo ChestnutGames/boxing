@@ -1,0 +1,7 @@
+﻿luanet.load_assembly("Assembly-CSharp")   
+luanet.load_assembly('UnityEngine')  
+Vector2 = luanet.import_type('UnityEngine.Vector2')  
+Vector3 = luanet.import_type('UnityEngine.Vector3')  
+GameObject = luanet.import_type('UnityEngine.GameObject')  
+luanet.import_type('System.Collections.Generic.List')  
+Debug = luanet.import_type('UnityEngine.Debug')  

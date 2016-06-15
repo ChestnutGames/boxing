@@ -1,0 +1,61 @@
+
+levelup.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+circleflash
+  rotate: false
+  xy: 1140, 374
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+feather
+  rotate: false
+  xy: 1140, 354
+  size: 31, 18
+  orig: 31, 18
+  offset: 0, 0
+  index: -1
+ju
+  rotate: false
+  xy: 2, 64
+  size: 576, 268
+  orig: 576, 268
+  offset: 0, 0
+  index: -1
+le
+  rotate: false
+  xy: 1742, 853
+  size: 247, 121
+  orig: 247, 121
+  offset: 0, 0
+  index: -1
+w
+  rotate: false
+  xy: 2, 334
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1
+wing1
+  rotate: false
+  xy: 2, 2
+  size: 93, 60
+  orig: 93, 60
+  offset: 0, 0
+  index: -1
+wing2
+  rotate: false
+  xy: 1742, 792
+  size: 87, 59
+  orig: 87, 59
+  offset: 0, 0
+  index: -1
+yellowhalo
+  rotate: false
+  xy: 580, 218
+  size: 114, 114
+  orig: 114, 114
+  offset: 0, 0
+  index: -1

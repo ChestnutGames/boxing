@@ -1,0 +1,117 @@
+
+skeleton.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ELSarmL
+  rotate: false
+  xy: 228, 486
+  size: 112, 200
+  orig: 112, 200
+  offset: 0, 0
+  index: -1
+ELSarmR
+  rotate: false
+  xy: 342, 532
+  size: 128, 184
+  orig: 128, 184
+  offset: 0, 0
+  index: -1
+ELSbody
+  rotate: false
+  xy: 2, 688
+  size: 288, 320
+  orig: 288, 320
+  offset: 0, 0
+  index: -1
+ELShead1
+  rotate: false
+  xy: 550, 832
+  size: 216, 176
+  orig: 216, 176
+  offset: 0, 0
+  index: -1
+ELShead2
+  rotate: false
+  xy: 768, 832
+  size: 216, 176
+  orig: 216, 176
+  offset: 0, 0
+  index: -1
+ELShead3
+  rotate: false
+  xy: 2, 478
+  size: 224, 208
+  orig: 224, 208
+  offset: 0, 0
+  index: -1
+ELShead4
+  rotate: false
+  xy: 292, 832
+  size: 256, 176
+  orig: 256, 176
+  offset: 0, 0
+  index: -1
+ELShead5
+  rotate: true
+  xy: 2, 220
+  size: 256, 160
+  orig: 256, 160
+  offset: 0, 0
+  index: -1
+ELShead6
+  rotate: true
+  xy: 2, 2
+  size: 216, 176
+  orig: 216, 176
+  offset: 0, 0
+  index: -1
+ELSleg
+  rotate: false
+  xy: 472, 596
+  size: 88, 120
+  orig: 88, 120
+  offset: 0, 0
+  index: -1
+ELSshoe
+  rotate: true
+  xy: 986, 952
+  size: 56, 24
+  orig: 56, 24
+  offset: 0, 0
+  index: -1
+ELStail
+  rotate: false
+  xy: 856, 750
+  size: 128, 80
+  orig: 128, 80
+  offset: 0, 0
+  index: -1
+ELSunder
+  rotate: false
+  xy: 292, 718
+  size: 272, 112
+  orig: 272, 112
+  offset: 0, 0
+  index: -1
+ELSupper
+  rotate: false
+  xy: 566, 758
+  size: 288, 72
+  orig: 288, 72
+  offset: 0, 0
+  index: -1
+handL
+  rotate: true
+  xy: 164, 380
+  size: 96, 80
+  orig: 96, 80
+  offset: 0, 0
+  index: -1
+handR
+  rotate: false
+  xy: 246, 388
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1

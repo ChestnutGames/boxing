@@ -1,0 +1,61 @@
+
+qhcg.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cg
+  rotate: true
+  xy: 1890, 644
+  size: 185, 94
+  orig: 185, 94
+  offset: 0, 0
+  index: -1
+hammer
+  rotate: false
+  xy: 2, 191
+  size: 111, 184
+  orig: 111, 184
+  offset: 0, 0
+  index: -1
+qh
+  rotate: true
+  xy: 2, 2
+  size: 187, 93
+  orig: 187, 93
+  offset: 0, 0
+  index: -1
+qh1
+  rotate: false
+  xy: 115, 282
+  size: 187, 93
+  orig: 187, 93
+  offset: 0, 0
+  index: -1
+sb
+  rotate: true
+  xy: 1890, 831
+  size: 186, 95
+  orig: 186, 95
+  offset: 0, 0
+  index: -1
+spark
+  rotate: false
+  xy: 1987, 990
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+w
+  rotate: false
+  xy: 2, 377
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1
+windmill
+  rotate: true
+  xy: 1140, 270
+  size: 747, 748
+  orig: 747, 748
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,82 @@
+
+lottery.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Bstar
+  rotate: false
+  xy: 1390, 829
+  size: 50, 49
+  orig: 50, 49
+  offset: 0, 0
+  index: -1
+Gstar
+  rotate: false
+  xy: 580, 294
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Rstar
+  rotate: false
+  xy: 1140, 698
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+chest1
+  rotate: false
+  xy: 1140, 750
+  size: 248, 128
+  orig: 248, 128
+  offset: 0, 0
+  index: -1
+chest2
+  rotate: false
+  xy: 2, 2
+  size: 200, 72
+  orig: 200, 72
+  offset: 0, 0
+  index: -1
+chest3
+  rotate: true
+  xy: 1889, 1412
+  size: 216, 96
+  orig: 216, 96
+  offset: 0, 0
+  index: -1
+dark
+  rotate: false
+  xy: 2, 988
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1
+ju
+  rotate: false
+  xy: 2, 76
+  size: 576, 268
+  orig: 576, 268
+  offset: 0, 0
+  index: -1
+twinkle
+  rotate: false
+  xy: 1889, 1383
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+w
+  rotate: false
+  xy: 2, 346
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1
+windmill
+  rotate: false
+  xy: 1140, 880
+  size: 747, 748
+  orig: 747, 748
+  offset: 0, 0
+  index: -1

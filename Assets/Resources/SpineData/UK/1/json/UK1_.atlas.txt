@@ -1,0 +1,117 @@
+
+UK1_.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+armL
+  rotate: true
+  xy: 908, 310
+  size: 80, 104
+  orig: 80, 104
+  offset: 0, 0
+  index: -1
+armR
+  rotate: true
+  xy: 2, 2
+  size: 88, 120
+  orig: 88, 120
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 254
+  size: 176, 234
+  orig: 176, 234
+  offset: 0, 0
+  index: -1
+handL
+  rotate: false
+  xy: 358, 180
+  size: 96, 80
+  orig: 96, 80
+  offset: 0, 0
+  index: -1
+handR
+  rotate: false
+  xy: 908, 392
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+head1
+  rotate: false
+  xy: 2, 92
+  size: 176, 160
+  orig: 176, 160
+  offset: 0, 0
+  index: -1
+head2
+  rotate: false
+  xy: 180, 134
+  size: 176, 160
+  orig: 176, 160
+  offset: 0, 0
+  index: -1
+head3
+  rotate: false
+  xy: 180, 296
+  size: 192, 192
+  orig: 192, 192
+  offset: 0, 0
+  index: -1
+head4
+  rotate: false
+  xy: 374, 328
+  size: 176, 160
+  orig: 176, 160
+  offset: 0, 0
+  index: -1
+head5
+  rotate: false
+  xy: 552, 328
+  size: 176, 160
+  orig: 176, 160
+  offset: 0, 0
+  index: -1
+head6
+  rotate: false
+  xy: 730, 328
+  size: 176, 160
+  orig: 176, 160
+  offset: 0, 0
+  index: -1
+legL
+  rotate: true
+  xy: 488, 270
+  size: 56, 72
+  orig: 56, 72
+  offset: 0, 0
+  index: -1
+legR
+  rotate: true
+  xy: 562, 270
+  size: 56, 64
+  orig: 56, 64
+  offset: 0, 0
+  index: -1
+shoe
+  rotate: true
+  xy: 124, 34
+  size: 56, 24
+  orig: 56, 24
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 374, 262
+  size: 112, 64
+  orig: 112, 64
+  offset: 0, 0
+  index: -1
+under
+  rotate: false
+  xy: 180, 84
+  size: 136, 48
+  orig: 136, 48
+  offset: 0, 0
+  index: -1

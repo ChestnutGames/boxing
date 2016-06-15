@@ -1,0 +1,96 @@
+
+US2_.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm
+  rotate: false
+  xy: 2, 2
+  size: 96, 32
+  orig: 96, 32
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 596, 37
+  size: 207, 273
+  orig: 207, 273
+  offset: 0, 0
+  index: -1
+handL
+  rotate: false
+  xy: 871, 66
+  size: 96, 80
+  orig: 96, 80
+  offset: 0, 0
+  index: -1
+handR
+  rotate: false
+  xy: 871, 148
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+head1
+  rotate: true
+  xy: 2, 36
+  size: 208, 295
+  orig: 208, 295
+  offset: 0, 0
+  index: -1
+head3
+  rotate: true
+  xy: 2, 36
+  size: 208, 295
+  orig: 208, 295
+  offset: 0, 0
+  index: -1
+head6
+  rotate: true
+  xy: 2, 36
+  size: 208, 295
+  orig: 208, 295
+  offset: 0, 0
+  index: -1
+head2
+  rotate: true
+  xy: 2, 36
+  size: 208, 295
+  orig: 208, 295
+  offset: 0, 0
+  index: -1
+head4
+  rotate: true
+  xy: 299, 36
+  size: 208, 295
+  orig: 208, 295
+  offset: 0, 0
+  index: -1
+head5
+  rotate: true
+  xy: 299, 36
+  size: 208, 295
+  orig: 208, 295
+  offset: 0, 0
+  index: -1
+legL
+  rotate: false
+  xy: 969, 164
+  size: 24, 80
+  orig: 24, 80
+  offset: 0, 0
+  index: -1
+legR
+  rotate: false
+  xy: 969, 164
+  size: 24, 80
+  orig: 24, 80
+  offset: 0, 0
+  index: -1
+shoe
+  rotate: false
+  xy: 100, 2
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1

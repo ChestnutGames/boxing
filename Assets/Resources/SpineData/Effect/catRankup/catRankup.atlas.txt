@@ -1,0 +1,61 @@
+
+catRankup.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dark
+  rotate: false
+  xy: 2, 1146
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1
+heataura
+  rotate: false
+  xy: 1718, 1683
+  size: 319, 103
+  orig: 319, 103
+  offset: 0, 0
+  index: -1
+jssx
+  rotate: false
+  xy: 2, 2
+  size: 364, 90
+  orig: 364, 90
+  offset: 0, 0
+  index: -1
+ju
+  rotate: false
+  xy: 1140, 1518
+  size: 576, 268
+  orig: 576, 268
+  offset: 0, 0
+  index: -1
+lightdot
+  rotate: false
+  xy: 372, 444
+  size: 58, 58
+  orig: 58, 58
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 94
+  size: 368, 408
+  orig: 368, 408
+  offset: 0, 0
+  index: -1
+shadow2
+  rotate: false
+  xy: 1140, 1108
+  size: 368, 408
+  orig: 368, 408
+  offset: 0, 0
+  index: -1
+w
+  rotate: false
+  xy: 2, 504
+  size: 1136, 640
+  orig: 1136, 640
+  offset: 0, 0
+  index: -1
