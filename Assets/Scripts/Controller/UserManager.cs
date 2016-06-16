@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.Assertions;
 using CodeStage.AntiCheat.ObscuredTypes;
+
 /// <summary>
 /// 存放 从服务器获得的的数据 和会修改的数据
 /// </summary>
-public class UserManager : UnitySingleton<UserManager> 
-{   
+public class UserManager : UnitySingleton<UserManager>
+{
     public delegate void ChangeInfoFun();
     public event ChangeInfoFun ChangeInfoEvent;
 
@@ -18,10 +19,10 @@ public class UserManager : UnitySingleton<UserManager>
     //角色 
     public RoleData curRole;
 
-    public Hashtable RoleTable; 
+    public Hashtable RoleTable;
     public Hashtable boxTable;
     public Hashtable equipTable;
-    public Dictionary<int,LiLianViewData> hallTable; 
+    public Dictionary<int, LiLianViewData> hallTable;
 
     //网络
     public long uid;
@@ -35,14 +36,16 @@ public class UserManager : UnitySingleton<UserManager>
 
     public ObscuredInt lilian_level;
     public ObscuredLong lilian_exp;
-    public ObscuredInt strength; 
-     
+    public ObscuredInt strength;
+
 
     public ObscuredLong coin;
     public ObscuredLong exp;
     public ObscuredLong diamond;
     public ObscuredLong friend_point;
-      
+
+
+
     public int curDay;
     public int curMonth;
 
@@ -62,13 +65,56 @@ public class UserManager : UnitySingleton<UserManager>
     //本地
     public bool onlineState;
 
-    public UserAttrs userAttr; 
+    public UserAttrs userAttr;
     public AttrsBase foreverAttr;
-    public UserLevelData constAttr; 
+    public UserLevelData constAttr;
 
     public VipData curVipdata;
     public LevelData curLeveldata;
-    public int curUnLockChapter; 
+    public int curUnLockChapter;
+
+    private Int32 _cpChapter;
+    private Int32 _cpType;
+    private Int32 _cpCheckpoint;
+    private Int32 _cpDropId1;
+    private Int32 _cpDropId2;
+    private Int32 _cpDropId3;
+
+    public Int32 CpChapter
+    {
+        get { return _cpChapter; }
+        set { _cpChapter = value; }
+    }
+
+    public Int32 CpType
+    {
+        get { return _cpType; }
+        set { _cpChapter = value; }
+    }
+
+    public Int32 CpCheckpoint
+    {
+        get { return _cpCheckpoint; }
+        set { _cpCheckpoint = value; }
+    }
+
+    public Int32 CpDropId1
+    {
+        get { return _cpDropId1; }
+        set { _cpDropId1 = value; }
+    }
+
+    public Int32 CpDropId2
+    {
+        get { return _cpDropId2; }
+        set { _cpDropId2 = value; }
+    }
+
+    public Int32 CpDropId3
+    {
+        get { return _cpDropId3; }
+        set { _cpDropId3 = value; }
+    }
 
     public float GetPower()
     {
@@ -107,8 +153,8 @@ public class UserManager : UnitySingleton<UserManager>
     }
 
     public int GetCurVipLevelRecharge()
-    {  
-        int cur = GameShared.Instance.GetVipByLevel((int)vip_level).diamond_count; 
+    {
+        int cur = GameShared.Instance.GetVipByLevel((int)vip_level).diamond_count;
         return cur;
     }
 
@@ -117,10 +163,11 @@ public class UserManager : UnitySingleton<UserManager>
         level++;
         userAttr.RestUserAttr((int)level);
     }
-	// Use this for initialization
-	void Start () {    
-        NetworkManager.Instance.UserCallBackEvent += Instance_UserCallBackEvent;  
-	}
+    // Use this for initialization
+    void Start()
+    {
+        NetworkManager.Instance.UserCallBackEvent += Instance_UserCallBackEvent;
+    }
 
     public long honor_coin;
     //资源是否达到要求
@@ -151,11 +198,11 @@ public class UserManager : UnitySingleton<UserManager>
 
     //资源是否达到要求
     public void SubResByType(int t, int num)
-    { 
+    {
         switch (t)
         {
             case 1:
-                SubDiamond(num); 
+                SubDiamond(num);
                 break;
             case 2:
                 SubCoin(num);
@@ -166,10 +213,10 @@ public class UserManager : UnitySingleton<UserManager>
             case 6:
                 SubHonor(num);
                 break;
-        } 
+        }
     }
 
-     
+
 
     void Instance_UserCallBackEvent(C2sSprotoType.user.response resp)
     {
@@ -180,41 +227,44 @@ public class UserManager : UnitySingleton<UserManager>
     {
         System.Collections.IDictionaryEnumerator enumerator = RoleTable.GetEnumerator();
         while (enumerator.MoveNext())
-        { 
+        {
             RoleData r = RoleTable[enumerator.Key] as RoleData;
             r.wakeLevel = r.initWakeLevel;
-            int id = (r.csv_id*1000) + r.wakeLevel; 
-            r.starData = GameShared.Instance.GetRoleStarById(id);  
+            int id = (r.csv_id * 1000) + r.wakeLevel;
+            r.starData = GameShared.Instance.GetRoleStarById(id);
         }
         if (u.rolelist != null)
         {
             for (int i = 0; i < u.rolelist.Count; i++)
             {
-                RoleData r = GameShared.Instance.GetRoleById((int)u.rolelist[i].csv_id);
-                r.is_possessed = u.rolelist[i].is_possessed;
-                r.wakeLevel = (int)u.rolelist[i].star;
-                int id = (r.csv_id * 1000) + r.wakeLevel;
-                r.starData = GameShared.Instance.GetRoleStarById(id);
-                if (r.is_possessed)
+                if (u.rolelist[i].csv_id != 0)
                 {
-                    r.xilianList = new List<XiLianData>();
-                    r.xilianList.Add(this.InitXiLianData((Def.AttrId)u.rolelist[i].property_id1, (int)u.rolelist[i].value1));
-                    r.xilianList.Add(this.InitXiLianData((Def.AttrId)u.rolelist[i].property_id2, (int)u.rolelist[i].value2));
-                    r.xilianList.Add(this.InitXiLianData((Def.AttrId)u.rolelist[i].property_id3, (int)u.rolelist[i].value3));
-                    r.xilianList.Add(this.InitXiLianData((Def.AttrId)u.rolelist[i].property_id4, (int)u.rolelist[i].value4));
-                    r.xilianList.Add(this.InitXiLianData((Def.AttrId)u.rolelist[i].property_id5, (int)u.rolelist[i].value5));
-                } 
-                //Debug.Log(r.sort +"/" +(int)r.csv_id);
-                r.frgNum = (int)u.rolelist[i].u_us_prop_num;
-                if (UserManager.Instance.RoleTable.Contains(r.csv_id))
-                {
-                    RoleTable[r.csv_id] = r;
-                }
-                else
-                {
-                    RoleTable.Add(r.csv_id, r);
-                }
+                    RoleData r = GameShared.Instance.GetRoleById((int)u.rolelist[i].csv_id);
+                    r.is_possessed = u.rolelist[i].is_possessed;
+                    r.wakeLevel = (int)u.rolelist[i].star;
+                    int id = (r.csv_id * 1000) + r.wakeLevel;
+                    r.starData = GameShared.Instance.GetRoleStarById(id);
+                    if (r.is_possessed)
+                    {
+                        r.xilianList = new List<XiLianData>();
+                        r.xilianList.Add(this.InitXiLianData((Def.AttrId)u.rolelist[i].property_id1, (int)u.rolelist[i].value1));
+                        r.xilianList.Add(this.InitXiLianData((Def.AttrId)u.rolelist[i].property_id2, (int)u.rolelist[i].value2));
+                        r.xilianList.Add(this.InitXiLianData((Def.AttrId)u.rolelist[i].property_id3, (int)u.rolelist[i].value3));
+                        r.xilianList.Add(this.InitXiLianData((Def.AttrId)u.rolelist[i].property_id4, (int)u.rolelist[i].value4));
+                        r.xilianList.Add(this.InitXiLianData((Def.AttrId)u.rolelist[i].property_id5, (int)u.rolelist[i].value5));
+                    }
 
+                    //Debug.Log(r.sort +"/" +(int)r.csv_id);
+                    r.frgNum = (int)u.rolelist[i].u_us_prop_num;
+                    if (UserManager.Instance.RoleTable.Contains(r.csv_id))
+                    {
+                        RoleTable[r.csv_id] = r;
+                    }
+                    else
+                    {
+                        RoleTable.Add(r.csv_id, r);
+                    }
+                }
             }
         }
         else
@@ -225,31 +275,45 @@ public class UserManager : UnitySingleton<UserManager>
 
     public XiLianData InitXiLianData(Def.AttrId id, int num)
     {
-        XiLianData d = new XiLianData();
-        XiLianMaxData max = GameShared.Instance.GetXiLianByType(id);
-        d.id = id;
-        d.min = max.min;
-        d.max = max.max;
-        d.name = Comm.GetAttrStr(id);
-        d.num = (int)num;
-        Debug.Log("id" + id + "num" + num);
-        return d;
+        if (id == Def.AttrId.None)
+        {
+            return null;
+            //XiLianData d = new XiLianData();
+            //d.id = 0;
+            //d.min = 0;
+            //d.max = 0;
+            //d.name = "None";
+            //d.num = 0;
+            //return d;
+        }
+        else
+        {
+            XiLianData d = new XiLianData();
+            XiLianMaxData max = GameShared.Instance.GetXiLianByType(id);
+            d.id = id;
+            d.min = max.min;
+            d.max = max.max;
+            d.name = Comm.GetAttrStr(id);
+            d.num = (int)num;
+            Debug.Log("id" + id + "num" + num);
+            return d;
+        }
     }
 
     public void InitBoxingData(C2sSprotoType.user u)
-    { 
+    {
         System.Collections.IDictionaryEnumerator enumerator = GameShared.Instance.boxingTable.GetEnumerator();
         while (enumerator.MoveNext())
         {
-            BoxingViewData v = new BoxingViewData(); 
-            v.frag_num = 0; 
+            BoxingViewData v = new BoxingViewData();
+            v.frag_num = 0;
             v.level = 0;
             BoxingData r = GameShared.Instance.boxingTable[enumerator.Key] as BoxingData;
             v.data = r;
-            int id = (r.csv_id*1000) + v.level;
+            int id = (r.csv_id * 1000) + v.level;
             r.levelData = GameShared.Instance.GetBoxingLevelById(id);
-             
-            boxTable.Add(v.data.csv_id, v); 
+
+            boxTable.Add(v.data.csv_id, v);
         }
 
         if (u.kungfu_list != null)
@@ -257,28 +321,31 @@ public class UserManager : UnitySingleton<UserManager>
             for (int i = 0; i < u.kungfu_list.Count; i++)
             {
                 int id = (int)u.kungfu_list[i].csv_id;
-                C2sSprotoType.kungfu_content c = u.kungfu_list[i];
-                if (UserManager.Instance.boxTable.Contains(id))
+                if (id != 0)
                 {
-                    BoxingViewData v = new BoxingViewData();
-                    v.level = (int)c.k_level;
-                    v.frag_num = (int)c.k_sp_num;
-                    v.type = (int)c.k_type;
-                    v.data = GameShared.Instance.GetBoxingById((int)c.csv_id);
-                    int levelid = (1000 * v.data.csv_id) + v.level;
-                    v.data.levelData = GameShared.Instance.GetBoxingLevelById(levelid);
-                    UserManager.Instance.boxTable[v.data.csv_id] = v;
-                }
-                else
-                {
-                    BoxingViewData v = new BoxingViewData();
-                    v.level = (int)c.k_level;
-                    v.frag_num = (int)c.k_sp_num;
-                    v.type = (int)c.k_type;
-                    v.data = GameShared.Instance.GetBoxingById((int)c.csv_id);
-                    int levelid = (1000 * v.data.csv_id) + v.level;
-                    v.data.levelData = GameShared.Instance.GetBoxingLevelById(levelid);
-                    UserManager.Instance.boxTable.Add(id, v);
+                    C2sSprotoType.kungfu_content c = u.kungfu_list[i];
+                    if (UserManager.Instance.boxTable.Contains(id))
+                    {
+                        BoxingViewData v = new BoxingViewData();
+                        v.level = (int)c.k_level;
+                        v.frag_num = (int)c.k_sp_num;
+                        v.type = (int)c.k_type;
+                        v.data = GameShared.Instance.GetBoxingById((int)c.csv_id);
+                        int levelid = (1000 * v.data.csv_id) + v.level;
+                        v.data.levelData = GameShared.Instance.GetBoxingLevelById(levelid);
+                        UserManager.Instance.boxTable[v.data.csv_id] = v;
+                    }
+                    else
+                    {
+                        BoxingViewData v = new BoxingViewData();
+                        v.level = (int)c.k_level;
+                        v.frag_num = (int)c.k_sp_num;
+                        v.type = (int)c.k_type;
+                        v.data = GameShared.Instance.GetBoxingById((int)c.csv_id);
+                        int levelid = (1000 * v.data.csv_id) + v.level;
+                        v.data.levelData = GameShared.Instance.GetBoxingLevelById(levelid);
+                        UserManager.Instance.boxTable.Add(id, v);
+                    }
                 }
             }
         }
@@ -289,37 +356,40 @@ public class UserManager : UnitySingleton<UserManager>
     }
 
     public void InitEquipData(C2sSprotoType.user u)
-    { 
+    {
         System.Collections.IDictionaryEnumerator enumerator = GameShared.Instance.equipmentTable.GetEnumerator();
         while (enumerator.MoveNext())
         {
-            EquipViewData v = new EquipViewData(); 
+            EquipViewData v = new EquipViewData();
             v.level = 1;
             EquipData r = GameShared.Instance.equipmentTable[enumerator.Key] as EquipData;
             v.data = r;
             int id = (r.csv_id * 1000) + v.level;
             r.levelData = GameShared.Instance.GetEquipmentIntensifyById(id);
-            equipTable.Add(v.data.csv_id, v); 
+            equipTable.Add(v.data.csv_id, v);
         }
         if (u.equipment_list != null)
         {
             for (int i = 0; i < u.equipment_list.Count; i++)
             {
                 EquipViewData e = new EquipViewData();
-                int id = (int)u.equipment_list[i].csv_id;
-                e.level = (int)u.equipment_list[i].level;
-                if (id > 999)
-                    id = id / 1000;
-                e.data = GameShared.Instance.GetEquipmentById(id);
-                e.data.levelData = EquipmentMgr.Instance.GetEquipLevelData(e.data.csv_id, e.level);
+                if (u.equipment_list[i].csv_id != 0)
+                {
+                    int id = (int)u.equipment_list[i].csv_id;
+                    e.level = (int)u.equipment_list[i].level;
+                    if (id > 999)
+                        id = id / 1000;
+                    e.data = GameShared.Instance.GetEquipmentById(id);
+                    e.data.levelData = EquipmentMgr.Instance.GetEquipLevelData(e.data.csv_id, e.level);
 
-                if (UserManager.Instance.equipTable.Contains(e.data.csv_id))
-                {
-                    equipTable[e.data.csv_id] = e;
-                }
-                else
-                {
-                    equipTable.Add(e.data.csv_id, e);
+                    if (UserManager.Instance.equipTable.Contains(e.data.csv_id))
+                    {
+                        equipTable[e.data.csv_id] = e;
+                    }
+                    else
+                    {
+                        equipTable.Add(e.data.csv_id, e);
+                    }
                 }
             }
         }
@@ -333,24 +403,24 @@ public class UserManager : UnitySingleton<UserManager>
     {
         hallTable = new Dictionary<int, LiLianViewData>();
         foreach (KeyValuePair<int, LiLianHallData> pair in GameShared.Instance.lilianHallTable)
-        { 
-                LiLianViewData d = new LiLianViewData();
-                d.data = pair.Value;
-                d.unlock = false;
-                d.num =  0;
-                if (lilian_level >= d.data.open_level)
-                {
-                    d.unlock = true;
-                }
-                if (hallTable.ContainsKey(d.data.csv_id))
-                {
-                    hallTable[d.data.csv_id] = d;
-                }
-                else
-                {
-                    hallTable.Add(d.data.csv_id, d);
-                } 
-        }  
+        {
+            LiLianViewData d = new LiLianViewData();
+            d.data = pair.Value;
+            d.unlock = false;
+            d.num = 0;
+            if (lilian_level >= d.data.open_level)
+            {
+                d.unlock = true;
+            }
+            if (hallTable.ContainsKey(d.data.csv_id))
+            {
+                hallTable[d.data.csv_id] = d;
+            }
+            else
+            {
+                hallTable.Add(d.data.csv_id, d);
+            }
+        }
     }
 
     public void RestUserAttr()
@@ -358,19 +428,19 @@ public class UserManager : UnitySingleton<UserManager>
         if (userAttr == null)
         {
             userAttr = new UserAttrs();
-        } 
-        userAttr.RestUserAttr((int)level); 
-    }  
+        }
+        userAttr.RestUserAttr((int)level);
+    }
 
     public void CheckPointHangingCallback(C2sSprotoType.checkpoint_hanging.response resp)
     {
         if (resp.errorcode == 1)
         {
-            for(int i=0;i<resp.props.Count;i++)
+            for (int i = 0; i < resp.props.Count; i++)
             {
-                BagMgr.Instance.SetItemNumById((int)resp.props[i].csv_id,(int)resp.props[i].num);
-            } 
-        } 
+                BagMgr.Instance.SetItemNumById((int)resp.props[i].csv_id, (int)resp.props[i].num);
+            }
+        }
     }
 
     public void SetUser(C2sSprotoType.user u)
@@ -380,11 +450,11 @@ public class UserManager : UnitySingleton<UserManager>
         curDay = DateTime.Now.Day;
         curMonth = DateTime.Now.Month;
 
-        
+
         exp = u.uexp;
         vip_level = (int)u.uviplevel;
         curVipdata = GameShared.Instance.GetVipByLevel((int)vip_level);
-         
+
 
         coin = u.gold;
         diamond = (int)u.diamond;
@@ -393,20 +463,20 @@ public class UserManager : UnitySingleton<UserManager>
         signTxt = u.sign;
         recharge_total = (int)u.recharge_diamond;
 
-        curUnLockChapter = (int)u.cp_chapter+1;
+        curUnLockChapter = (int)u.cp_chapter + 1;
         battleRoleID = (int)u.c_role_id;
-        
+
 
         ArenaMgr.Instance.curRank = (int)u.ara_rnk;
         lilian_level = (int)u.lilian_level;
-         
+
 
         if (u.cp_hanging_id != 0)
-            curLeveldata = GameShared.Instance.GetLevelById((int)u.cp_hanging_id); 
+            curLeveldata = GameShared.Instance.GetLevelById((int)u.cp_hanging_id);
 
         RoleTable = GameShared.Instance.roleTable;
         boxTable = new Hashtable();
-        equipTable = new Hashtable(); 
+        equipTable = new Hashtable();
 
         InitRoleData(u);
         InitBoxingData(u);
@@ -439,14 +509,14 @@ public class UserManager : UnitySingleton<UserManager>
     {
         Debug.Log(i);
         this.diamond = i;
-        if(ChangeInfoEvent != null)
+        if (ChangeInfoEvent != null)
             ChangeInfoEvent();
     }
 
     public void SetFriendPoint(int i)
     {
         this.friend_point = i;
-        if(ChangeInfoEvent != null)
+        if (ChangeInfoEvent != null)
             ChangeInfoEvent();
     }
 
@@ -463,8 +533,8 @@ public class UserManager : UnitySingleton<UserManager>
         SetGold((int)coin);
     }
     public void SubCoin(int i)
-    { 
-        coin-=i;
+    {
+        coin -= i;
         SetGold((int)coin);
     }
 
@@ -474,8 +544,8 @@ public class UserManager : UnitySingleton<UserManager>
         SetDiamond((int)diamond);
     }
     public void SubDiamond(int i)
-    { 
-        diamond-=i;
+    {
+        diamond -= i;
         SetDiamond((int)diamond);
     }
 
@@ -504,7 +574,7 @@ public class UserManager : UnitySingleton<UserManager>
     public void SubHonor(int i)
     {
         honor_coin -= i;
-        SetHonor((int)exp); 
+        SetHonor((int)exp);
     }
     public void AddHonor(int i)
     {
@@ -549,7 +619,7 @@ public class UserManager : UnitySingleton<UserManager>
         equipTable.Clear();
         BagMgr.Instance.RestEmpty();
     }
-     
+
 
     //组合角色数据
     //public void InitUserData(C2sSprotoType.login.response resp)
@@ -566,14 +636,13 @@ public class UserManager : UnitySingleton<UserManager>
     //}
 
     public void InitUserData()
-    { 
+    {
         Debug.Log("登录完成");
         GameShared.Instance.InitMemeryData();
         BagMgr.Instance.BagList();
-        LevelsMgr.Instance.ChapterList(); 
+        LevelsMgr.Instance.ChapterList();
         TimerRest();
-        //NetworkManager.Instance.LoginUserInfo();
-        LoginMgr.Instance.EntryGame();
+        NetworkManager.Instance.LoginUserInfo();
     }
 
 
@@ -586,7 +655,7 @@ public class UserManager : UnitySingleton<UserManager>
     }
 
     public void TimerEmpty()
-    { 
+    {
         expTimer = null;
         hangingTimer = null;
     }
@@ -596,24 +665,24 @@ public class UserManager : UnitySingleton<UserManager>
         TimerEmpty();
     }
 
-     
+
 
     void FixedUpdate()
     {
- 
-        if (expTimer != null && expTimer.Update(Time.deltaTime) > 0 && curLeveldata!=null)
+
+        if (expTimer != null && expTimer.Update(Time.deltaTime) > 0 && curLeveldata != null)
         {
             UserManager.Instance.coin += curLeveldata.gain_gold;
-            UserManager.Instance.exp +=curLeveldata.gain_exp;
-            if(ChangeInfoEvent != null)
-            ChangeInfoEvent();
+            UserManager.Instance.exp += curLeveldata.gain_exp;
+            if (ChangeInfoEvent != null)
+                ChangeInfoEvent();
 
         }
         if (hangingTimer != null && hangingTimer.Update(Time.deltaTime) > 0)
         {
             NetworkManager.Instance.CheckPointHanging();
-        } 
-	}
+        }
+    }
 
     void Update()
     {
@@ -631,7 +700,4 @@ public class UserManager : UnitySingleton<UserManager>
         //    ToastManager.Instance.Show("进入前台");
         //}
     }
-
-
-
 }

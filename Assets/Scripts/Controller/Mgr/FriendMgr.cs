@@ -13,7 +13,7 @@ public class FriendMgr : UnitySingleton<FriendMgr>
 
     private Hashtable viewList;
     private List<FriendData> dataList;
-    private FriendView curCallBackView; 
+    private FriendView curCallBackView;
     public FriendPop pop;
     public int point;
     private LuaState l;
@@ -31,8 +31,8 @@ public class FriendMgr : UnitySingleton<FriendMgr>
     }
 
     public void InitLua()
-    { 
-        TextAsset scriptFile = Resources.Load<TextAsset>(Def.Lua_Friend); 
+    {
+        TextAsset scriptFile = Resources.Load<TextAsset>(Def.Lua_Friend);
         l = new LuaState();
         l.DoString(scriptFile.text);
 
@@ -41,22 +41,22 @@ public class FriendMgr : UnitySingleton<FriendMgr>
     }
 
     public void GetFriendList()
-    { 
-            NetworkManager.Instance.FriendList();
-        
+    {
+        NetworkManager.Instance.FriendList();
+
     }
 
     public void GetFriendApplyList()
-    { 
-            NetworkManager.Instance.FriendApplyList();
-       
+    {
+        NetworkManager.Instance.FriendApplyList();
+
     }
 
     public void GetFriendAddList()
     {
-        
-            NetworkManager.Instance.FriendAddList();
-       
+
+        NetworkManager.Instance.FriendAddList();
+
     }
     public void FriendApplyCallBack(C2sSprotoType.applied_list.response resp)
     {
@@ -75,7 +75,7 @@ public class FriendMgr : UnitySingleton<FriendMgr>
             SetPopList(list);
         }
     }
-        
+
 
     public void FriendListCallBack(C2sSprotoType.friend_list.response resp)
     {
@@ -92,52 +92,49 @@ public class FriendMgr : UnitySingleton<FriendMgr>
     public List<FriendData> RespToList(List<subuser> friendlist)
     {
         List<FriendData> list = new List<FriendData>();
-        
+
         if (friendlist != null)
         {
             for (int i = 0; i < friendlist.Count; i++)
-            { 
+            {
                 FriendData data = new FriendData();
-                Debug.Log("(int)friendlist[i].id"+(int)friendlist[i].id+"data.heartamount" + friendlist[i].heartamount + "friendlist[i].heart" + friendlist[i].heart);
+                Debug.Log("(int)friendlist[i].id" + (int)friendlist[i].id + "data.heartamount" + friendlist[i].heartamount + "friendlist[i].heart" + friendlist[i].heart);
                 data.id = (int)friendlist[i].id;
                 data.name = friendlist[i].name;
                 data.time = friendlist[i].online_time;
                 data.qian = friendlist[i].sign;
                 data.level = (int)friendlist[i].level;
-                data.power = (int)friendlist[i].fightpower; 
+                data.power = (int)friendlist[i].fightpower;
                 data.vip = (int)friendlist[i].viplevel;
                 data.icon = friendlist[i].iconid.ToString();
                 data.isApply = friendlist[i].apply;
-                data.isReceive = friendlist[i].receive;  
+                data.isReceive = friendlist[i].receive;
                 data.isHeart = friendlist[i].heart;
                 data.heartamount = (int)friendlist[i].heartamount;
                 data.signtime = (int)friendlist[i].signtime;
-                list.Add(data); 
+                list.Add(data);
             }
         }
         return list;
     }
 
-    
+
     public void SetPopList(List<FriendData> list)
     {
         pop.SetList(list);
     }
 
-    
-    
-
     public void ApplyAll()
     {
         viewList = pop.viewList;
-        if (viewList.Count > 0 )
+        if (viewList.Count > 0)
         {
 
             C2sSprotoType.applyfriend.request obj = new C2sSprotoType.applyfriend.request();
-            List<C2sSprotoType.friendidlist> l = new List<C2sSprotoType.friendidlist>(); 
+            List<C2sSprotoType.friendidlist> l = new List<C2sSprotoType.friendidlist>();
             obj.friendlist = l;
             for (int i = 0; i < viewList.Count; i++)
-            { 
+            {
                 FriendView v = viewList[i] as FriendView;
                 if (v.data.isApply)
                 {
@@ -159,43 +156,38 @@ public class FriendMgr : UnitySingleton<FriendMgr>
                         v.data.isApply = false;
                         v.CheckBtn();
                     }
-                } 
+                }
             }
         }
     }
 
     public void Apply(FriendView v)
-    { 
-            C2sSprotoType.applyfriend.request obj = new C2sSprotoType.applyfriend.request();
-            List<C2sSprotoType.friendidlist> l = new List<C2sSprotoType.friendidlist>();
-            obj.friendlist = l; 
-                C2sSprotoType.friendidlist f = new C2sSprotoType.friendidlist();
-                f.friendid = v.data.id;
-                f.type = 0;
-                f.signtime = v.data.signtime;
-                l.Add(f); 
-            NetworkManager.Instance.FriendApply(obj); 
- 
-            v.data.isApply = false;
-            v.CheckBtn(); 
+    {
+        C2sSprotoType.applyfriend.request obj = new C2sSprotoType.applyfriend.request();
+        List<C2sSprotoType.friendidlist> l = new List<C2sSprotoType.friendidlist>();
+        obj.friendlist = l;
+        C2sSprotoType.friendidlist f = new C2sSprotoType.friendidlist();
+        f.friendid = v.data.id;
+        f.type = 0;
+        f.signtime = v.data.signtime;
+        l.Add(f);
+        NetworkManager.Instance.FriendApply(obj);
+
+        v.data.isApply = false;
+        v.CheckBtn();
     }
 
     public void Swap()
-    {  
-            NetworkManager.Instance.FriendAddList(); 
+    {
+        NetworkManager.Instance.FriendAddList();
     }
-
-   
-
-   
-
 
     public List<C2sSprotoType.friendidlist> GetFriendidList(Hashtable list)
     {
         List<C2sSprotoType.friendidlist> l = new List<C2sSprotoType.friendidlist>();
-        System.Collections.IDictionaryEnumerator enumerator = list.GetEnumerator(); 
+        System.Collections.IDictionaryEnumerator enumerator = list.GetEnumerator();
         while (enumerator.MoveNext())
-        { 
+        {
             C2sSprotoType.friendidlist f = new C2sSprotoType.friendidlist();
             FriendView v = list[enumerator.Key] as FriendView;
             f.friendid = v.data.id;
@@ -206,39 +198,38 @@ public class FriendMgr : UnitySingleton<FriendMgr>
         return l;
     }
 
-
     public List<C2sSprotoType.friendidlist> GetFriendidList(FriendView v)
     {
         List<C2sSprotoType.friendidlist> l = new List<C2sSprotoType.friendidlist>();
-         
-            C2sSprotoType.friendidlist f = new C2sSprotoType.friendidlist(); 
-            f.friendid = v.data.id;
-            f.type = 0;
-            f.signtime = v.data.signtime;
-            l.Add(f); 
+
+        C2sSprotoType.friendidlist f = new C2sSprotoType.friendidlist();
+        f.friendid = v.data.id;
+        f.type = 0;
+        f.signtime = v.data.signtime;
+        l.Add(f);
         return l;
     }
 
     public void Accept(FriendView v)
-    { 
-            C2sSprotoType.recvfriend.request obj = new C2sSprotoType.recvfriend.request();
-            obj.friendlist = GetFriendidList(v);
-            NetworkManager.Instance.FriendAccept(obj);
+    {
+        C2sSprotoType.recvfriend.request obj = new C2sSprotoType.recvfriend.request();
+        obj.friendlist = GetFriendidList(v);
+        NetworkManager.Instance.FriendAccept(obj);
 
-            pop.SetLive(1);
-            pop.RemoveFriendView(v); 
+        pop.SetLive(1);
+        pop.RemoveFriendView(v);
     }
     public void AcceptAll()
-    { 
+    {
         viewList = pop.viewList;
-        if (viewList.Count > 0 )
+        if (viewList.Count > 0)
         {
-            C2sSprotoType.recvfriend.request obj = new C2sSprotoType.recvfriend.request(); 
-            obj.friendlist =  GetFriendidList(viewList);
-            NetworkManager.Instance.FriendAccept(obj); 
+            C2sSprotoType.recvfriend.request obj = new C2sSprotoType.recvfriend.request();
+            obj.friendlist = GetFriendidList(viewList);
+            NetworkManager.Instance.FriendAccept(obj);
 
             pop.RemoveAllView();
-            pop.SetLive(1); 
+            pop.SetLive(1);
             viewList.Clear();
         }
     }
@@ -246,120 +237,120 @@ public class FriendMgr : UnitySingleton<FriendMgr>
     public void RefuseAll()
     {
         viewList = pop.viewList;
-        if (viewList.Count > 0 )
+        if (viewList.Count > 0)
         {
 
             C2sSprotoType.refusefriend.request obj = new C2sSprotoType.refusefriend.request();
             obj.friendlist = GetFriendidList(viewList);
-            NetworkManager.Instance.FriendRefuse(obj); 
+            NetworkManager.Instance.FriendRefuse(obj);
 
             pop.RemoveAllView();
             viewList.Clear();
         }
     }
     public void Refuse(FriendView v)
-    { 
-            C2sSprotoType.refusefriend.request obj = new C2sSprotoType.refusefriend.request();
-            obj.friendlist = GetFriendidList(v);
-            NetworkManager.Instance.FriendRefuse(obj);  
+    {
+        C2sSprotoType.refusefriend.request obj = new C2sSprotoType.refusefriend.request();
+        obj.friendlist = GetFriendidList(v);
+        NetworkManager.Instance.FriendRefuse(obj);
 
-            pop.RemoveFriendView(v); 
+        pop.RemoveFriendView(v);
     }
 
     public void SendAll()
     {
         viewList = pop.viewList;
-        if (viewList.Count > 0 )
-        { 
-                C2sSprotoType.sendheart.request obj = new C2sSprotoType.sendheart.request();
-                List<C2sSprotoType.heartlist> l = new List<C2sSprotoType.heartlist>();
-                DateTime dt = DateTime.Now;
-                string t = string.Format("{0:yyyyMMddHHmmss}", dt);
-                int total = 0;
-                for (int i = 0; i < viewList.Count; i++)
+        if (viewList.Count > 0)
+        {
+            C2sSprotoType.sendheart.request obj = new C2sSprotoType.sendheart.request();
+            List<C2sSprotoType.heartlist> l = new List<C2sSprotoType.heartlist>();
+            DateTime dt = DateTime.Now;
+            string t = string.Format("{0:yyyyMMddHHmmss}", dt);
+            int total = 0;
+            for (int i = 0; i < viewList.Count; i++)
+            {
+
+                FriendView v = viewList[i] as FriendView;
+                if (v.data.isHeart)
                 {
-                   
-                    FriendView v = viewList[i] as FriendView;
-                    if (v.data.isHeart)
-                    {
-                        C2sSprotoType.heartlist f = new C2sSprotoType.heartlist();
-                        f.friendid = v.data.id;
-                        f.type = 0;
-                        f.signtime = v.data.signtime;
-                        f.amount = Def.RecHeart; 
-                        f.csendtime = t;
-                        l.Add(f);
-                        total += Def.RecHeart;
-                    }
-                } 
-                obj.hl = l;
-                obj.totalamount = total;
-                NetworkManager.Instance.SendHeart(obj); 
-                for (int i = 0; i < viewList.Count; i++)
+                    C2sSprotoType.heartlist f = new C2sSprotoType.heartlist();
+                    f.friendid = v.data.id;
+                    f.type = 0;
+                    f.signtime = v.data.signtime;
+                    f.amount = Def.RecHeart;
+                    f.csendtime = t;
+                    l.Add(f);
+                    total += Def.RecHeart;
+                }
+            }
+            obj.hl = l;
+            obj.totalamount = total;
+            NetworkManager.Instance.SendHeart(obj);
+            for (int i = 0; i < viewList.Count; i++)
+            {
+                FriendView v = pop.GetView(i);
+                if (v != null)
                 {
-                    FriendView v = pop.GetView(i);
-                    if (v != null)
+                    if (v.data.isHeart != false)
                     {
-                        if (v.data.isHeart != false)
-                        {
-                            v.data.isHeart = false;
-                            v.CheckBtn();
-                        }
+                        v.data.isHeart = false;
+                        v.CheckBtn();
                     }
-                } 
+                }
+            }
         }
     }
 
     public void Send(FriendView v)
-    { 
-            C2sSprotoType.sendheart.request obj = new C2sSprotoType.sendheart.request();
-            List<C2sSprotoType.heartlist> l = new List<C2sSprotoType.heartlist>();
-            DateTime dt = DateTime.Now;
-            string t = string.Format("{0:yyyyMMddHHmmss}", dt); 
-                C2sSprotoType.heartlist f = new C2sSprotoType.heartlist(); 
-                f.friendid = v.data.id;
-                f.type = 0;
-                f.signtime = v.data.signtime;
-                f.amount = Def.RecHeart;
-                f.csendtime = t;
-                l.Add(f); 
-            obj.hl = l;
-            obj.totalamount = Def.RecHeart;
-            NetworkManager.Instance.SendHeart(obj);
+    {
+        C2sSprotoType.sendheart.request obj = new C2sSprotoType.sendheart.request();
+        List<C2sSprotoType.heartlist> l = new List<C2sSprotoType.heartlist>();
+        DateTime dt = DateTime.Now;
+        string t = string.Format("{0:yyyyMMddHHmmss}", dt);
+        C2sSprotoType.heartlist f = new C2sSprotoType.heartlist();
+        f.friendid = v.data.id;
+        f.type = 0;
+        f.signtime = v.data.signtime;
+        f.amount = Def.RecHeart;
+        f.csendtime = t;
+        l.Add(f);
+        obj.hl = l;
+        obj.totalamount = Def.RecHeart;
+        NetworkManager.Instance.SendHeart(obj);
 
-            v.data.isHeart = false;
-            v.CheckBtn();  
+        v.data.isHeart = false;
+        v.CheckBtn();
     }
 
     public void ReceiveAll()
     {
         viewList = pop.viewList;
         int temp = 0;
-        if (viewList.Count > 0 )
+        if (viewList.Count > 0)
         {
             C2sSprotoType.recvheart.request obj = new C2sSprotoType.recvheart.request();
             List<C2sSprotoType.heartlist> l = new List<C2sSprotoType.heartlist>();
             DateTime dt = DateTime.Now;
-            string t = string.Format("{0:yyyyMMddHHmmss}", dt); 
+            string t = string.Format("{0:yyyyMMddHHmmss}", dt);
             for (int i = 0; i < viewList.Count; i++)
-            {  
+            {
                 FriendView v = viewList[i] as FriendView;
                 temp += v.data.heartamount;
-                if (v.data.heartamount>0 && temp < point)
+                if (v.data.heartamount > 0 && temp < point)
                 {
                     C2sSprotoType.heartlist f = new C2sSprotoType.heartlist();
                     f.friendid = v.data.id;
                     f.type = 0;
                     f.signtime = v.data.signtime;
-                    f.amount = Def.RecHeart; 
+                    f.amount = Def.RecHeart;
                     f.csendtime = t;
                     l.Add(f);
                 }
             }
             obj.hl = l;
             obj.totalamount = temp;
-           
-            if(point > temp)
+
+            if (point > temp)
             {
                 UserManager.Instance.AddFriendPoint(temp);
                 NetworkManager.Instance.ReceviceHeart(obj);
@@ -374,32 +365,34 @@ public class FriendMgr : UnitySingleton<FriendMgr>
                         {
                             v.data.isReceive = false;
                             v.data.heartamount = 0;
-                            v.CheckBtn(); 
+                            v.CheckBtn();
                         }
                     }
-                } 
-            }else
-            { 
+                }
+            }
+            else
+            {
                 ToastManager.Instance.Show("达到领取上线");
             }
         }
     }
+
     public void Receive(FriendView v)
     {
         viewList = pop.viewList;
-        if (point>v.data.heartamount && v.data.heartamount >0)
+        if (point > v.data.heartamount && v.data.heartamount > 0)
         {
             C2sSprotoType.recvheart.request obj = new C2sSprotoType.recvheart.request();
             List<C2sSprotoType.heartlist> l = new List<C2sSprotoType.heartlist>();
             DateTime dt = DateTime.Now;
-            string t = string.Format("{0:yyyyMMddHHmmss}", dt);  
+            string t = string.Format("{0:yyyyMMddHHmmss}", dt);
             C2sSprotoType.heartlist f = new C2sSprotoType.heartlist();
             f.friendid = v.data.id;
             f.type = 0;
             f.signtime = v.data.signtime;
             f.amount = v.data.heartamount;
             f.csendtime = t;
-            l.Add(f);  
+            l.Add(f);
             obj.hl = l;
             obj.totalamount = v.data.heartamount;
             NetworkManager.Instance.ReceviceHeart(obj);
@@ -409,15 +402,15 @@ public class FriendMgr : UnitySingleton<FriendMgr>
             UserManager.Instance.AddFriendPoint(v.data.heartamount);
             v.data.isReceive = false;
             v.data.heartamount = 0;
-            v.CheckBtn(); 
+            v.CheckBtn();
         }
     }
 
 
     public void OpenFriendDel(FriendView v)
-    { 
+    {
         if (MainUI.Instance.GetPopState(MainUI.PopType.FriendDel) != true)
-        { 
+        {
             MainUI.Instance.SetPopState(MainUI.PopType.FriendDel, true);
             GameObject obj = Instantiate(pop.popPrefab);
             obj.SetActive(true);
@@ -430,7 +423,7 @@ public class FriendMgr : UnitySingleton<FriendMgr>
     }
 
     private YesOrNoPop yesPop;
-    
+
     public void OpenDelYesOrNoPop(DelFriendPop v)
     {
         if (MainUI.Instance.GetPopState(MainUI.PopType.YesOrNo) != true)
@@ -455,10 +448,10 @@ public class FriendMgr : UnitySingleton<FriendMgr>
 
     private DelFriendPop curDelView;
     public void FriendDel(DelFriendPop v)
-    { 
-            curDelView = v;
-            NetworkManager.Instance.FriendDelete(v.view.data.id); 
-       
+    {
+        curDelView = v;
+        NetworkManager.Instance.FriendDelete(v.view.data.id);
+
     }
 
     public void FriendDelCallBack(C2sSprotoType.deletefriend.response resp)
@@ -471,9 +464,9 @@ public class FriendMgr : UnitySingleton<FriendMgr>
     }
 
     public void Search(string str)
-    { 
-            NetworkManager.Instance.FriendFind(int.Parse(str));
-     
+    {
+        NetworkManager.Instance.FriendFind(int.Parse(str));
+
     }
 
     public void FriendFindCallBack(C2sSprotoType.findfriend.response resp)
@@ -490,6 +483,6 @@ public class FriendMgr : UnitySingleton<FriendMgr>
                 SetPopList(list);
             }
         }
-    } 
-     
+    }
+
 }

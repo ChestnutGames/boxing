@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System;
 using System.Globalization;
-using Sproto; 
+using Sproto;
 
 public class NetworkManager : UnitySingleton<NetworkManager>
-{ 
+{
     public bool IsNetworkAvailable { get; private set; }
 
     public delegate void UserFun(C2sSprotoType.user.response resp);
@@ -16,14 +16,14 @@ public class NetworkManager : UnitySingleton<NetworkManager>
 
     public delegate void LoginFun(C2sSprotoType.login.response resp);
     public event LoginFun LoginCallBackEvent;
-       
+
     //推送
     public delegate void NewMailFun(EmailData data);
     public event NewMailFun NewMailCallBackEvent;
 
     public delegate void LiLianUpdateFun(EmailData data);
     public event LiLianUpdateFun LiLianUpdateCallBackEvent;
-  
+
     //抽奖
     public delegate void LotteryListFun(List<LotteryData> list);
     public event LotteryListFun LotteryListCallBackEvent;
@@ -38,27 +38,27 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     void Awake()
     {
         //ClientSocket.Instance.DisconnectEvent += Disconnect;
-        InitS2c(); 
+        InitS2c();
     }
 
     void InitS2c()
     {
         //注册响应
-        ClientSocket.Instance.RegisterResponse(S2cNewMailRequest, "S2cNewMailRequest",null);
-        ClientSocket.Instance.RegisterResponse(S2cLiLianUpdate,"S2cLiLianUpdate",null);
+        ClientSocket.Instance.RegisterResponse(S2cNewMailRequest, "S2cNewMailRequest", null);
+        ClientSocket.Instance.RegisterResponse(S2cLiLianUpdate, "S2cLiLianUpdate", null);
     }
 
 
     public void S2cLiLianUpdate(uint session, SprotoTypeBase requestObj, SprotoRpc.ResponseFunction Response, object ud)
     {
-        var req = (S2cSprotoType.lilian_update.response)requestObj; 
+        var req = (S2cSprotoType.lilian_update.response)requestObj;
         S2cSprotoType.lilian_update.response obj = new S2cSprotoType.lilian_update.response();
         obj.errorcode = 1;
         obj.msg = "yes";
         ClientSocket.Instance.Response(session, obj, Response, ud);
-         
+
         LiLianMgr.Instance.LiLianInfo();
-    } 
+    }
 
     public void S2cNewMailRequest(uint session, SprotoTypeBase requestObj, SprotoRpc.ResponseFunction Response, object ud)
     {
@@ -75,11 +75,11 @@ public class NetworkManager : UnitySingleton<NetworkManager>
 
 
     //错误状态提示
-    public bool Error(long l,string msg)
+    public bool Error(long l, string msg)
     {
-        string s = "code:" +l + "msg:"+msg+"状态 ：";
+        string s = "code:" + l + "msg:" + msg + "状态 ：";
         switch (l)
-        {  
+        {
             case 2:
                 Debug.Log(s + "离线");
                 break;
@@ -99,7 +99,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
                 Debug.Log(s + "已经登录");
                 break;
         }
-        Debug.Log(s); 
+        Debug.Log(s);
         bool flag = false;
         if (l == 1 || l == 81 || l == 85)
         {
@@ -113,12 +113,10 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     }
     public void Disconnect(SocketError socketError, PackageSocketError packageSocketError)
     {
-        ToastManager.Instance.Show("断开连接"); 
+        ToastManager.Instance.Show("断开连接");
         Debug.Log("disconnect");
         //ClientLogin(UserManager.Instance.username, UserManager.Instance.pwd); 
     }
-
-
 
     public void Regist(C2sSprotoType.signup.request obj)
     {
@@ -129,16 +127,16 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             Debug.Log("Regist" + resp.errorcode);
             //LoginMgr.Instance.RegistCallback(resp);
             if (resp.errorcode == 1)
-            { 
-               
+            {
+
             }
             else
             {
                 Error(resp.errorcode, resp.msg);
-            } 
-        }, obj, "Regist",null); 
+            }
+        }, obj, "Regist", null);
     }
-     
+
 
     //public void ClientLogin(string name, string pwd)
     //{
@@ -146,7 +144,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     //    { 
     //        string ip = "192.168.1.239";
     //        int port = 3002;
-             
+
     //        C2sSprotoType.login.request obj = new C2sSprotoType.login.request();
     //        obj.account = name;
     //        obj.password = pwd; 
@@ -168,7 +166,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     //    }
     //}
 
-     
+
 
     public void LoginOut()
     {
@@ -178,7 +176,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             {
                 var resp = (C2sSprotoType.logout.response)o;
                 Debug.Log("LoginOutResponse");
-                isLogin = true;  
+                isLogin = true;
                 //LoginMgr.Instance.LoginOutCallback(resp);
                 if (resp.errorcode == 1)
                 {
@@ -190,16 +188,16 @@ public class NetworkManager : UnitySingleton<NetworkManager>
                 }
 
             },
-           null, "LoginOut", null); 
+           null, "LoginOut", null);
         }
     }
-    
+
     public void LoginUserInfo()
     {
         ClientSocket.Instance.Resquest<C2sProtocol.user>((session, o, ud) =>
         {
-            var resp = (C2sSprotoType.user.response)o;
             Debug.Log("LoginUserInfo");
+            var resp = (C2sSprotoType.user.response)o;
             if (resp.errorcode == 1)
             {
                 UserCallBackEvent(resp);
@@ -216,11 +214,11 @@ public class NetworkManager : UnitySingleton<NetworkManager>
 
 
     public void UserInfo()
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.user>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.user.response)o;
-            Debug.Log("LoginInfoResponse"); 
+            Debug.Log("LoginInfoResponse");
             if (resp.errorcode == 1)
             {
                 Debug.Log("用户信息成功");
@@ -228,11 +226,11 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
         },
-        null, "UserInfo", null);  
+        null, "UserInfo", null);
     }
 
     public void UserCanModify()
@@ -251,7 +249,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
 
         },
-        null, "UserCanModify", null); 
+        null, "UserCanModify", null);
     }
     public void UserNameModify(C2sSprotoType.user_modify_name.request obj)
     {
@@ -265,11 +263,11 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
         },
-        obj, "UserNameModify", null); 
+        obj, "UserNameModify", null);
     }
 
     public void UserUpgrade()
@@ -284,10 +282,10 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
-        },null, "UserUpgrade", null); 
+        }, null, "UserUpgrade", null);
     }
 
     public void UserRandomNameModify()
@@ -302,11 +300,11 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
         },
-        null, "UserRandomNameModify", null); 
+        null, "UserRandomNameModify", null);
     }
 
     public void UserSignModify(C2sSprotoType.user_sign.request obj)
@@ -321,13 +319,13 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
         },
-        obj, "UserSignModify", null); 
+        obj, "UserSignModify", null);
     }
-    
+
     #endregion
     //角色
     #region
@@ -347,15 +345,15 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
 
         },
-        obj, "RoleWake", null); 
-    } 
+        obj, "RoleWake", null);
+    }
 
     public void RoleAll()
     {
         ClientSocket.Instance.Resquest<C2sProtocol.role_all>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.role_all.response)o;
-            Debug.Log("RoleAll"); 
+            Debug.Log("RoleAll");
             if (resp.errorcode == 1)
             {
                 RolesMgr.Instance.RoleListCallback(resp);
@@ -367,7 +365,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
 
         },
-       null, "RoleAll", null); 
+       null, "RoleAll", null);
     }
     //角色解锁
     public void RoleRecruit(C2sSprotoType.role_recruit.request obj)
@@ -387,7 +385,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
 
         },
-        obj, "RoleRecruit", null); 
+        obj, "RoleRecruit", null);
     }
 
     public void RoleBattle(C2sSprotoType.role_battle.request obj)
@@ -407,53 +405,53 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
 
         },
-        obj, "RoleBattle", null); 
+        obj, "RoleBattle", null);
     }
     #endregion
     //背包
     #region
     public void BagList()
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.props>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.props.response)o;
-            Debug.Log("背包列表"); 
-            BagMgr.Instance.BagListCallBack(resp);  
+            Debug.Log("背包列表");
+            BagMgr.Instance.BagListCallBack(resp);
         },
-        null, "BagList", null); 
-    }   
+        null, "BagList", null);
+    }
 
     public void ItemUse(ItemData data, int num, int role)
     {
-        List<C2sSprotoType.prop> list = new List<C2sSprotoType.prop>(); 
-            C2sSprotoType.prop p = new C2sSprotoType.prop();
-            p.csv_id = data.id;
-            p.num = num;
-            list.Add(p);
+        List<C2sSprotoType.prop> list = new List<C2sSprotoType.prop>();
+        C2sSprotoType.prop p = new C2sSprotoType.prop();
+        p.csv_id = data.id;
+        p.num = num;
+        list.Add(p);
 
-            C2sSprotoType.use_prop.request obj = new C2sSprotoType.use_prop.request();
-            obj.props = list;
-            obj.role_id = role;
-            ClientSocket.Instance.Resquest<C2sProtocol.use_prop>((session, o, ud) =>
+        C2sSprotoType.use_prop.request obj = new C2sSprotoType.use_prop.request();
+        obj.props = list;
+        obj.role_id = role;
+        ClientSocket.Instance.Resquest<C2sProtocol.use_prop>((session, o, ud) =>
+        {
+            var resp = (C2sSprotoType.use_prop.response)o;
+            Debug.Log("ItemUse rec" + resp.errorcode);
+            BagMgr.Instance.UseItemCallBack(resp);
+            if (resp.errorcode == 1)
             {
-                var resp = (C2sSprotoType.use_prop.response)o;
-                Debug.Log("ItemUse rec"+resp.errorcode);
-                BagMgr.Instance.UseItemCallBack(resp);
-                if (resp.errorcode == 1)
-                { 
-                    Debug.Log("道具使用成");
-                }
-                else
-                {
-                    Error(resp.errorcode, resp.msg);
-                }
+                Debug.Log("道具使用成");
+            }
+            else
+            {
+                Error(resp.errorcode, resp.msg);
+            }
 
-            },
-            obj, "ItemUse", null); 
+        },
+        obj, "ItemUse", null);
     }
 
-    public void ItemUse(List<ItemViewData> data,int role)
-    { 
+    public void ItemUse(List<ItemViewData> data, int role)
+    {
         List<C2sSprotoType.prop> list = new List<C2sSprotoType.prop>();
         for (int i = 0; i < data.Count; i++)
         {
@@ -463,7 +461,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             list.Add(p);
         }
         C2sSprotoType.use_prop.request obj = new C2sSprotoType.use_prop.request();
-        obj.props = list; 
+        obj.props = list;
         obj.role_id = role;
         ClientSocket.Instance.Resquest<C2sProtocol.use_prop>((session, o, ud) =>
         {
@@ -471,20 +469,20 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             Debug.Log("ItemUse");
             BagMgr.Instance.UseItemCallBack(resp);
             if (resp.errorcode == 1)
-            { 
+            {
                 Debug.Log("道具使用成");
             }
             else
             {
                 Error(resp.errorcode, resp.msg);
-            } 
+            }
         },
         obj, "ItemUse", null);
-    } 
+    }
 
     #endregion
     //邮件
-    #region 
+    #region
     //public void NewMailCallBack(S2cSprotoType.newemail.request resq)
     //{ 
     //    EmailData d = new EmailData();
@@ -531,7 +529,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         {
             var resp = (C2sSprotoType.mails.response)o;
             if (Error(resp.errorcode, resp.msg))
-            { 
+            {
                 Debug.Log("MailList");
                 EmailMgr.Instance.MailListCallBack(resp);
             }
@@ -554,7 +552,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         {
             var resp = (C2sSprotoType.mail_read.response)o;
             if (Error(resp.errorcode, resp.msg))
-            { 
+            {
                 Debug.Log("阅读邮件");
                 EmailMgr.Instance.MailReadCallBack();
             }
@@ -575,16 +573,16 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         obj.mail_id = list;
         ClientSocket.Instance.Resquest<C2sProtocol.mail_getreward>((session, o, ud) =>
         {
-            Debug.Log("MailReceive"); 
+            Debug.Log("MailReceive");
             var resp = (C2sSprotoType.mail_getreward.response)o;
             EmailMgr.Instance.MailReceiveCallBack(resp);
-            Error(resp.errorcode, resp.msg); 
+            Error(resp.errorcode, resp.msg);
         },
         obj, "MailReceive", null);
     }
 
     public void MailDelete(List<long> id)
-    { 
+    {
         List<C2sSprotoType.idlist> list = new List<C2sSprotoType.idlist>();
         for (int i = 0; i < id.Count; i++)
         {
@@ -613,18 +611,18 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         ClientSocket.Instance.Resquest<C2sProtocol.achievement>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.achievement.response)o;
-            Debug.Log("AchievementListResponse" + resp.errorcode); 
+            Debug.Log("AchievementListResponse" + resp.errorcode);
             if (resp.errorcode == 1)
             {
                 AchievementMgr.Instance.AchievementListCallBack(resp);
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
         }, null, "AchievementList", null);
-    } 
+    }
 
     public void AchievementReceive(int id)
     {
@@ -633,39 +631,39 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         ClientSocket.Instance.Resquest<C2sProtocol.achievement_reward_collect>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.achievement_reward_collect.response)o;
-            Debug.Log("AchievementReceive"); 
+            Debug.Log("AchievementReceive");
             if (resp.errorcode == 1)
             {
                 AchievementMgr.Instance.RevcieCallBack(resp);
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
         }, obj, "AchievementReceive", null);
     }
-     
+
     #endregion
     //好友
-    #region 
+    #region
     public void FriendList()
     {
         ClientSocket.Instance.Resquest<C2sProtocol.friend_list>((session, o, ud) =>
         {
-            var resp = (C2sSprotoType.friend_list.response)o;  
-            Debug.Log("FriendList"); 
+            var resp = (C2sSprotoType.friend_list.response)o;
+            Debug.Log("FriendList");
             if (resp.errorcode == 1)
             {
-                FriendMgr.Instance.FriendListCallBack(resp); 
+                FriendMgr.Instance.FriendListCallBack(resp);
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
         },
         null, "FriendList", null);
-    } 
+    }
 
     public void FriendApplyList()
     {
@@ -674,7 +672,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             var resp = (C2sSprotoType.applied_list.response)o;
             Debug.Log("FriendApplyList");
             if (resp.errorcode == 1)
-            { 
+            {
                 FriendMgr.Instance.FriendApplyCallBack(resp);
             }
             else
@@ -684,7 +682,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         },
         null, "FriendApplyList", null);
     }
-    
+
 
     public void FriendAddList()
     {
@@ -698,36 +696,36 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
-            
+
         },
         null, "FriendAddList", null);
     }
-     
+
     public void FriendFind(int id)
     {
         C2sSprotoType.findfriend.request obj = new C2sSprotoType.findfriend.request();
-        obj.id = id; 
+        obj.id = id;
         ClientSocket.Instance.Resquest<C2sProtocol.findfriend>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.findfriend.response)o;
-            Debug.Log("FriendApplyList"); 
+            Debug.Log("FriendApplyList");
             if (resp.errorcode == 1 || resp.errorcode == Def.Er_NotFindFrind)
             {
                 FriendMgr.Instance.FriendFindCallBack(resp);
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
-            
+
         },
        obj, "FriendFind", null);
-    } 
+    }
 
     public void FriendApply(C2sSprotoType.applyfriend.request obj)
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.applyfriend>((session, o, ud) =>
         {
             //var resp = (C2sSprotoType.applyfriend.response)o;
@@ -743,7 +741,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     }
 
     public void FriendAccept(C2sSprotoType.recvfriend.request obj)
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.recvfriend>((session, o, ud) =>
         {
             //var resp = (C2sSprotoType.recvfriend.response)o;
@@ -753,15 +751,15 @@ public class NetworkManager : UnitySingleton<NetworkManager>
        obj, "FriendAccept", null);
     }
     public void FriendRefuse(C2sSprotoType.refusefriend.request obj)
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.refusefriend>((session, o, ud) =>
         {
             //var resp = (C2sSprotoType.refusefriend.response)o;
             Debug.Log("FriendRefuse");
             //FriendMgr.Instance.FriendRefuseCallBack(resp);
         },
-       obj, "FriendRefuse", null); 
-    }  
+       obj, "FriendRefuse", null);
+    }
 
     public void FriendDelete(int id)
     {
@@ -776,7 +774,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             if (resp.errorcode == 1)
             {
                 Debug.Log("删除成");
-                FriendMgr.Instance.FriendDelCallBack(resp); 
+                FriendMgr.Instance.FriendDelCallBack(resp);
             }
             else
             {
@@ -788,7 +786,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     }
 
     public void ReceviceHeart(C2sSprotoType.recvheart.request obj)
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.recvheart>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.recvheart.response)o;
@@ -806,7 +804,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     }
 
     public void SendHeart(C2sSprotoType.sendheart.request obj)
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.sendheart>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.sendheart.response)o;
@@ -822,11 +820,11 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             //FriendMgr.Instance.FriendSendCallBack(resp);
         },
        obj, "SendHeart", null);
-    } 
+    }
     #endregion
     //商店 
-    #region 
-    public void  ShopList()
+    #region
+    public void ShopList()
     {
         ClientSocket.Instance.Resquest<C2sProtocol.shop_all>((session, o, ud) =>
         {
@@ -838,11 +836,11 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
         }, null, "ShopList", null);
-    } 
+    }
 
     public void ShopPurchase(List<ProductData> list)
     {
@@ -868,16 +866,16 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
         }, obj, "ShopPurchase", null);
-    } 
+    }
 
     public void ShopRefresh(int id)
     {
         C2sSprotoType.shop_refresh.request obj = new C2sSprotoType.shop_refresh.request();
-        obj.goods_id = id; 
+        obj.goods_id = id;
         ClientSocket.Instance.Resquest<C2sProtocol.shop_refresh>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.shop_refresh.response)o;
@@ -889,23 +887,23 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
         }, obj, "ShopRefresh", null);
     }
     #endregion
     //充值
-    #region 
+    #region
     public void RechargeList()
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.recharge_all>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.recharge_all.response)o;
-            Debug.Log("RechargeList"); 
+            Debug.Log("RechargeList");
             RechargeMgr.Instance.RechargeListCallback(resp);
-            Error(resp.errorcode,resp.msg);
-        }, null, "RechargeList", null); 
+            Error(resp.errorcode, resp.msg);
+        }, null, "RechargeList", null);
     }
 
     public void RechargeSwaredList()
@@ -920,26 +918,26 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
-        }, null, "RechargeSwaredList", null); 
+        }, null, "RechargeSwaredList", null);
     }
 
     public void RechargeSwared(C2sSprotoType.recharge_vip_reward_collect.request obj)
-    {  
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.recharge_vip_reward_collect>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.recharge_vip_reward_collect.response)o;
             Debug.Log("RechargeSwared");
             RechargeMgr.Instance.RewaredCallback(resp);
-            Error(resp.errorcode,resp.msg);
-        }, obj, "RechargeSwared", null); 
+            Error(resp.errorcode, resp.msg);
+        }, obj, "RechargeSwared", null);
     }
- 
+
 
     public void RechargePurchase(List<C2sSprotoType.recharge_buy> list)
-    { 
+    {
         C2sSprotoType.recharge_purchase.request obj = new C2sSprotoType.recharge_purchase.request();
         obj.g = list;
         ClientSocket.Instance.Resquest<C2sProtocol.recharge_purchase>((session, o, ud) =>
@@ -953,10 +951,10 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
-        }, obj, "RechargePurchase", null); 
+        }, obj, "RechargePurchase", null);
     }
     public void RechargeVipPurchase(C2sSprotoType.recharge_vip_reward_purchase.request obj)
     {
@@ -966,14 +964,14 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             var resp = (C2sSprotoType.recharge_vip_reward_purchase.response)o;
             Debug.Log("recharge_vip_reward_purchase");
             RechargeMgr.Instance.RechargeVipPurchaseCallBack(resp);
-            Error(resp.errorcode,resp.msg);
-        }, obj, "RechargeVipPurchase", null); 
+            Error(resp.errorcode, resp.msg);
+        }, obj, "RechargeVipPurchase", null);
     }
     #endregion
     //抽奖
     #region
     public void LotteryListBack(C2sSprotoType.draw.response resp)
-    { 
+    {
         List<LotteryData> list = new List<LotteryData>();
         for (int i = 0; i < resp.list.Count; i++)
         {
@@ -987,13 +985,13 @@ public class NetworkManager : UnitySingleton<NetworkManager>
                 re.lefttime = (int)resp.list[i].lefttime;
                 re.isShowTime = true;
                 int a = (int)resp.list[i].lefttime;
-                re.refresh_time = DateTime.Now.AddSeconds(a); 
+                re.refresh_time = DateTime.Now.AddSeconds(a);
             }
             re.id = (int)resp.list[i].drawtype;
             re.drawnum = (int)resp.list[i].drawnum;
             list.Add(re);
         }
-        LotterMgr.Instance.LotteryListCallback(list); 
+        LotterMgr.Instance.LotteryListCallback(list);
     }
 
     public void LotteryList()
@@ -1002,11 +1000,11 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         {
             var resp = (C2sSprotoType.draw.response)o;
             Debug.Log("LotteryList");
-            LotteryListBack(resp); 
+            LotteryListBack(resp);
         },
-       null, "LotteryList", null); 
+       null, "LotteryList", null);
     }
-     
+
 
     public void LotteryChou(int id, bool mian)
     {
@@ -1025,7 +1023,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     #endregion
     //用户信息
     #region
-    #endregion 
+    #endregion
     //日常
     #region
     public void DailyList()
@@ -1052,7 +1050,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
 
         }, null, "DailySign", null);
@@ -1074,7 +1072,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         ClientSocket.Instance.Resquest<C2sProtocol.exercise>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.exercise.response)o;
-            Debug.Log("DuanList"); 
+            Debug.Log("DuanList");
             DailyMgr.Instance.DuanLianListCallback(resp);
 
         }, null, "DuanList", null);
@@ -1084,9 +1082,9 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     {
         ClientSocket.Instance.Resquest<C2sProtocol.exercise_once>((session, o, ud) =>
         {
-            var resp = (C2sSprotoType.exercise_once.response)o; 
-            Debug.Log("Duan"); 
-            DailyMgr.Instance.DuanLianCallback(resp); 
+            var resp = (C2sSprotoType.exercise_once.response)o;
+            Debug.Log("Duan");
+            DailyMgr.Instance.DuanLianCallback(resp);
             Error(resp.errorcode, resp.msg);
 
         }, obj, "Duan", null);
@@ -1098,8 +1096,8 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         ClientSocket.Instance.Resquest<C2sProtocol.c_gold_once>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.c_gold_once.response)o;
-            Debug.Log("Gold"); 
-            DailyMgr.Instance.GoldCallback(resp);  
+            Debug.Log("Gold");
+            DailyMgr.Instance.GoldCallback(resp);
             Error(resp.errorcode, resp.msg);
 
         }, obj, "Gold", null);
@@ -1110,11 +1108,11 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         ClientSocket.Instance.Resquest<C2sProtocol.c_gold>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.c_gold.response)o;
-            Debug.Log("GoldList"); 
+            Debug.Log("GoldList");
             DailyMgr.Instance.GoldListCallback(resp);
 
         }, null, "GoldList", null);
-    } 
+    }
     #endregion
     //装备
     #region
@@ -1128,31 +1126,31 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         }, null, "EquipList", null);
     }
     public void EquipIntensify(C2sSprotoType.equipment_enhance.request obj)
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.equipment_enhance>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.equipment_enhance.response)o;
             Debug.Log("EquipIntensify");
-            EquipmentMgr.Instance.IntensifyCallback(resp); 
+            EquipmentMgr.Instance.IntensifyCallback(resp);
             if (resp.errorcode == 1 || resp.errorcode == Def.Er_FailEquip)
             {
-                
+
             }
             else
             {
-                Error(resp.errorcode,resp.msg);
+                Error(resp.errorcode, resp.msg);
             }
         }, obj, "EquipIntensify", null);
     }
-    #endregion 
+    #endregion
     //拳法
     #region
     public void BoxingList()
     {
         ClientSocket.Instance.Resquest<C2sProtocol.kungfu>((session, o, ud) =>
         {
-            var resp = (C2sSprotoType.kungfu.response)o; 
-            Debug.Log("BoxingList");  
+            var resp = (C2sSprotoType.kungfu.response)o;
+            Debug.Log("BoxingList");
             BoxingMgr.Instance.InitBoxingListCallback(resp);
             //Error(resp.errorcode, resp.msg);
         }, null, "BoxingList", null);
@@ -1163,21 +1161,22 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         {
             var resp = (C2sSprotoType.kungfu_levelup.response)o;
             Debug.Log("BoxingUp" + resp.errorcode);
-            BoxingMgr.Instance.UpLevelCallback(resp);             
-            Error(resp.errorcode,resp.msg);
+            BoxingMgr.Instance.UpLevelCallback(resp);
+            Error(resp.errorcode, resp.msg);
         }, obj, "BoxingUp", null);
     }
     public void BoxingChose(C2sSprotoType.kungfu_chose.request obj)
     {
         ClientSocket.Instance.Resquest<C2sProtocol.kungfu_chose>((session, o, ud) =>
         {
-            var resp = (C2sSprotoType.kungfu_chose.response)o; 
-            Debug.Log("BoxingChose"); 
+            var resp = (C2sSprotoType.kungfu_chose.response)o;
+            Debug.Log("BoxingChose");
             BoxingMgr.Instance.SaveBoxingCallback(resp);
             Error(resp.errorcode, resp.msg);
         }, obj, "BoxingChose", null);
     }
     #endregion
+
     //洗练 
     #region
     public void XiLianList(C2sSprotoType.xilian.request obj)
@@ -1213,8 +1212,9 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
 
         }, obj, "XiLianSave", null);
-    } 
+    }
     #endregion
+
     //关卡
     #region
     public void CheckPointChose(C2sSprotoType.checkpoint_hanging_choose.request obj)
@@ -1229,12 +1229,12 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             }
             else
             {
-//                Error(resp.errorcode, resp.msg);
+                //                Error(resp.errorcode, resp.msg);
             }
 
         }, obj, "CheckPointChose", null);
     }
-    
+
     public void CheckPointBattleExit(C2sSprotoType.checkpoint_battle_exit.request obj)
     {
         ClientSocket.Instance.Resquest<C2sProtocol.checkpoint_battle_exit>((session, o, ud) =>
@@ -1275,8 +1275,8 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     {
         ClientSocket.Instance.Resquest<C2sProtocol.checkpoint_chapter>((session, o, ud) =>
         {
-            var resp = (C2sSprotoType.checkpoint_chapter.response)o;
             Debug.Log("CheckPointChapter");
+            var resp = (C2sSprotoType.checkpoint_chapter.response)o;
             if (resp.errorcode == 1)
             {
                 LevelsMgr.Instance.InitChapterAndLevelData(resp);
@@ -1288,7 +1288,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
 
         }, null, "CheckPointChapter", null);
     }
-    
+
     public void CheckPointHanging()
     {
         ClientSocket.Instance.Resquest<C2sProtocol.checkpoint_hanging>((session, o, ud) =>
@@ -1325,6 +1325,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         }, null, "CheckPointExit", null);
     }
     #endregion
+
     //历练
     #region
     public void GetStrength()
@@ -1332,8 +1333,8 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         ClientSocket.Instance.Resquest<C2sProtocol.lilian_get_phy_power>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.lilian_get_phy_power.response)o;
-            Debug.Log("GetStrength"); 
-            LiLianMgr.Instance.StrengthCallback(resp); 
+            Debug.Log("GetStrength");
+            LiLianMgr.Instance.StrengthCallback(resp);
             Error(resp.errorcode, resp.msg);
 
         }, null, "GetStrength", null);
@@ -1356,7 +1357,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         ClientSocket.Instance.Resquest<C2sProtocol.lilian_rewared_list>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.lilian_rewared_list.response)o;
-            Debug.Log("LiLianSaveRewardList"+resp.errorcode);
+            Debug.Log("LiLianSaveRewardList" + resp.errorcode);
             LiLianMgr.Instance.GetLiLianSaveSwardListCallback(resp);
             //LevelsMgr.Instance.SelectLevelCallback(resp); 
             //Error(resp.errorcode, resp.msg); 
@@ -1380,7 +1381,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         {
             var resp = (C2sSprotoType.start_lilian.response)o;
             Debug.Log("LiLianStart");
-            LiLianMgr.Instance.LiLianCallback(resp); 
+            LiLianMgr.Instance.LiLianCallback(resp);
             Error(resp.errorcode, resp.msg);
         }, obj, "LiLianStart", null);
     }
@@ -1397,7 +1398,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     }
 
     public void QuickLiLian(C2sSprotoType.lilian_inc.request obj)
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.lilian_inc>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.lilian_inc.response)o;
@@ -1420,8 +1421,9 @@ public class NetworkManager : UnitySingleton<NetworkManager>
 
 
     #endregion
+
     //竞技场
-    #region 
+    #region
     /// <summary>
     /// 排行榜
     /// </summary>
@@ -1435,7 +1437,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             param["resp"] = resp;
             GameMain.Instance.CallLogicAction(Def.LogicActionDefine.ArenaRankList, param);
             Error(resp.errorcode, resp.msg);
-        }, null, "ArenaRankList", null); 
+        }, null, "ArenaRankList", null);
     }
 
     public void ArenaExit()
@@ -1443,7 +1445,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         ClientSocket.Instance.Resquest<C2sProtocol.ara_lp>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.ara_lp.response)o;
-            Debug.Log("ArenaExit"); 
+            Debug.Log("ArenaExit");
             Error(resp.errorcode, resp.msg);
         }, null, "ArenaExit", null);
     }
@@ -1566,7 +1568,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     public void AraRoleChoose(List<long> l)
     {
         C2sSprotoType.ara_choose_role.request obj = new C2sSprotoType.ara_choose_role.request();
-        obj.bat_roleid = l; 
+        obj.bat_roleid = l;
         ClientSocket.Instance.Resquest<C2sProtocol.ara_choose_role>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.ara_choose_role.response)o;
@@ -1608,7 +1610,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
         ClientSocket.Instance.Resquest<C2sProtocol.BeginGUQNQIACoreFight>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.BeginGUQNQIACoreFight.response)o;
-            Debug.Log("BattleBegin"); 
+            Debug.Log("BattleBegin");
             ActionParam param = new ActionParam();
             param["resp"] = resp;
             GameMain.Instance.CallLogicAction(Def.LogicActionDefine.LevelFightBegin, param);
@@ -1628,10 +1630,10 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             ActionParam param = new ActionParam();
             param["resp"] = resp;
             BattleManager.Instance.bufAct = new ActQueueData();
-            BattleManager.Instance.bufAct.kf_id = (int)resp.kf_id; 
+            BattleManager.Instance.bufAct.kf_id = (int)resp.kf_id;
             BattleManager.Instance.bufAct.who = (int)resp.firstfighter;
             BattleManager.Instance.bufAct.kfType = (int)Def.BattleAttackType.Normal;
-            BattleManager.Instance.bufAct.fight_type = Def.FightType.Auto; 
+            BattleManager.Instance.bufAct.fight_type = Def.FightType.Auto;
             GameMain.Instance.CallLogicAction(Def.LogicActionDefine.LevelFightBegin, param);
 
             Error(resp.errorcode, "");
@@ -1641,7 +1643,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     public void LevelBattleList(List<C2sSprotoType.BattleListElem> list)
     {
         C2sSprotoType.GuanQiaBattleList.request obj = new C2sSprotoType.GuanQiaBattleList.request();
-        obj.fightlist = list; 
+        obj.fightlist = list;
         ClientSocket.Instance.Resquest<C2sProtocol.GuanQiaBattleList>((session, o, ud) =>
         {
             var resp = (C2sSprotoType.GuanQiaBattleList.response)o;
@@ -1658,7 +1660,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
     public void SingleBattleList(ActQueueData curAct, ClientSocket.RespCb resp)
     {
         C2sSprotoType.TMP_GuanQiaBattleList.request obj = new C2sSprotoType.TMP_GuanQiaBattleList.request();
-        C2sSprotoType.BattleListElem e = new C2sSprotoType.BattleListElem(); 
+        C2sSprotoType.BattleListElem e = new C2sSprotoType.BattleListElem();
         e.attcktype = (int)curAct.fight_type; //自动还是手动 
         e.kf_type = (int)curAct.kfType;
         e.kf_id = (int)curAct.kf_id;
@@ -1698,7 +1700,7 @@ public class NetworkManager : UnitySingleton<NetworkManager>
             {
                 ActionParam param = new ActionParam();
                 param["resp"] = resp;
-                GameMain.Instance.CallLogicAction(Def.LogicActionDefine.ArenaBattleEnter, param); 
+                GameMain.Instance.CallLogicAction(Def.LogicActionDefine.ArenaBattleEnter, param);
             }
         }, obj, "LevelBattleList", null);
     }
@@ -1707,17 +1709,17 @@ public class NetworkManager : UnitySingleton<NetworkManager>
 
 
     public void AppUnFocusBattle()
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.OnNormalExitCoreFight>((session, o, ud) =>
-        {  
-             
+        {
+
         }, null, "AppUnFocusBattle", null);
     }
     public void AppFocusBattle()
-    { 
+    {
         ClientSocket.Instance.Resquest<C2sProtocol.OnReEnterCoreFight>((session, o, ud) =>
         {
-            var resp = (C2sSprotoType.OnReEnterCoreFight.response)o; 
+            var resp = (C2sSprotoType.OnReEnterCoreFight.response)o;
             Error(resp.errorcode, "");
         }, null, "AppFocusBattle", null);
     }

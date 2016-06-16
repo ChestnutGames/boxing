@@ -39,7 +39,6 @@ public class FriendPop : MonoBehaviour
     private List<FriendData> curList; 
     public Hashtable viewList; 
      
-
     private int livefr;
 
     public FriendTabView[] tabList;

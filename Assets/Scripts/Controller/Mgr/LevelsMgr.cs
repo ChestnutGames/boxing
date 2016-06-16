@@ -39,16 +39,29 @@ public class LevelsMgr : UnitySingleton<LevelsMgr> {
 
     public void InitChapterAndLevelData(C2sSprotoType.checkpoint_chapter.response resp)
     {
-        if (resp.errorcode == 1 && resp.l != null)
+        if (resp.errorcode == 1)
         {
-            for (int i = 0; i < resp.l.Count; i++)
+            UserManager.Instance.CpChapter = (Int32)resp.chapter;
+            UserManager.Instance.CpType = (Int32)resp.type;
+            UserManager.Instance.CpCheckpoint = (Int32)resp.checkpoint;
+            UserManager.Instance.CpDropId1 = (Int32)resp.drop_id1;
+            UserManager.Instance.CpDropId2 = (Int32)resp.drop_id2;
+            UserManager.Instance.CpDropId3 = (Int32)resp.drop_id3;
+            if (resp.l != null)
             {
-                //Debug.Log("chapter" + "关" + (i + 1) + ":" + resp.l[i].chapter + " chapter_type0 :" + resp.l[i].chapter_type0 + " chapter_type1:" + resp.l[i].chapter_type1);
-                //ChapterData d = GameShared.Instance.GetChapterById((int)resp.l[i].chapter);
-                //d.curLevel[(int)Def.levelType.Normal] = (int)resp.l[i].chapter_type0;
-                //d.curLevel[(int)Def.levelType.Hard] = (int)resp.l[i].chapter_type1;
-                //d.curLevel[(int)Def.levelType.Hell] = (int)resp.l[i].chapter_type2;
+                for (int i = 0; i < resp.l.Count; i++)
+                {
+                    //Debug.Log("chapter" + "关" + (i + 1) + ":" + resp.l[i].chapter + " chapter_type0 :" + resp.l[i].chapter_type0 + " chapter_type1:" + resp.l[i].chapter_type1);
+                    ChapterData d = GameShared.Instance.GetChapterById((int)resp.l[i].chapter);
+                    d.curLevel[(int)Def.levelType.Normal] = (int)resp.l[i].chapter_type0;
+                    d.curLevel[(int)Def.levelType.Hard] = (int)resp.l[i].chapter_type1;
+                    d.curLevel[(int)Def.levelType.Hell] = (int)resp.l[i].chapter_type2;
+                }
             }
+        }
+        else
+        {
+            Debug.LogFormat("errorcode : %d", resp.errorcode);
         }
     } 
 

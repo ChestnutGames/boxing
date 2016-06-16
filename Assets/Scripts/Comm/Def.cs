@@ -10,7 +10,7 @@ public class Def  {
     public static string IP = "192.168.1.116";
     //public static string IP = "192.168.228.133";
 
-   // public static string IP = "192.168.1.239";
+    //public static string IP = "192.168.1.239";
 
     //战斗中谁死了
     public enum BattleDeadType
@@ -111,6 +111,7 @@ public class Def  {
 
     public enum AttrId
     {
+        None = 0,
         FightPower = 1,
         Defense = 2,
         Crit = 3,
