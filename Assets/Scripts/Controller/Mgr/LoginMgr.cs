@@ -10,6 +10,7 @@ public class LoginMgr : UnitySingleton<LoginMgr> {
     ClientLogin login;
     // Use this for initialization
     public bool isLogin;
+
 	void Awake () {  
         login = GameObject.Find("Login").GetComponent<ClientLogin>();
         string name = string.Format(ActionFormat(), "erew");

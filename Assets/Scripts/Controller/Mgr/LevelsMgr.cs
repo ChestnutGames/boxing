@@ -43,11 +43,11 @@ public class LevelsMgr : UnitySingleton<LevelsMgr> {
         {
             for (int i = 0; i < resp.l.Count; i++)
             {
-                Debug.Log("chapter" + "关" + (i + 1) + ":" + resp.l[i].chapter + " chapter_type0 :" + resp.l[i].chapter_type0 + " chapter_type1:" + resp.l[i].chapter_type1);
-                ChapterData d = GameShared.Instance.GetChapterById((int)resp.l[i].chapter);
-                d.curLevel[(int)Def.levelType.Normal] = (int)resp.l[i].chapter_type0;
-                d.curLevel[(int)Def.levelType.Hard] = (int)resp.l[i].chapter_type1;
-                d.curLevel[(int)Def.levelType.Hell] = (int)resp.l[i].chapter_type2;
+                //Debug.Log("chapter" + "关" + (i + 1) + ":" + resp.l[i].chapter + " chapter_type0 :" + resp.l[i].chapter_type0 + " chapter_type1:" + resp.l[i].chapter_type1);
+                //ChapterData d = GameShared.Instance.GetChapterById((int)resp.l[i].chapter);
+                //d.curLevel[(int)Def.levelType.Normal] = (int)resp.l[i].chapter_type0;
+                //d.curLevel[(int)Def.levelType.Hard] = (int)resp.l[i].chapter_type1;
+                //d.curLevel[(int)Def.levelType.Hell] = (int)resp.l[i].chapter_type2;
             }
         }
     } 

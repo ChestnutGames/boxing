@@ -572,7 +572,8 @@ public class UserManager : UnitySingleton<UserManager>
         BagMgr.Instance.BagList();
         LevelsMgr.Instance.ChapterList(); 
         TimerRest();
-        NetworkManager.Instance.LoginUserInfo(); 
+        //NetworkManager.Instance.LoginUserInfo();
+        LoginMgr.Instance.EntryGame();
     }
 
 
